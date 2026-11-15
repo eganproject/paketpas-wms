@@ -10,11 +10,11 @@ plugins {
 val buildNumber = (System.getenv("GITHUB_RUN_NUMBER") ?: "1").toInt()
 
 android {
-    namespace = "id.cheerychic.wmsscan"
+    namespace = "id.paketpas.wmsscan"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "id.cheerychic.wmsscan"
+        applicationId = "id.paketpas.wmsscan"
         minSdk = 24
         targetSdk = 35
         versionCode = buildNumber

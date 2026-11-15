@@ -31,7 +31,7 @@ class MobileReturnApiTest extends TestCase
 
         Storage::fake('local');
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $this->token = MobileToken::issue($this->admin, 'Tes')[1];
 
         $this->product = Product::create([

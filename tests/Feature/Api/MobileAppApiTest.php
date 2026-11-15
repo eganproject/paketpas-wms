@@ -31,7 +31,7 @@ class MobileAppApiTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
 
         $this->product = Product::create([
             'sku' => 'FLT-OLI-STD', 'barcode' => '8991234500035',
@@ -49,11 +49,11 @@ class MobileAppApiTest extends TestCase
     public function test_login_returns_a_token_and_menu_access(): void
     {
         $response = $this->postJson('/api/mobile/login', [
-            'email' => 'admin@cheery.test', 'password' => 'password', 'device_name' => 'HP Packing 1',
+            'email' => 'admin@paketpas.test', 'password' => 'password', 'device_name' => 'HP Packing 1',
         ]);
 
         $response->assertOk()
-            ->assertJsonPath('user.email', 'admin@cheery.test')
+            ->assertJsonPath('user.email', 'admin@paketpas.test')
             ->assertJsonPath('user.can.kemas', true)
             ->assertJsonPath('user.can.serah_terima', true)
             ->assertJsonPath('user.can.pesanan', true);
@@ -69,7 +69,7 @@ class MobileAppApiTest extends TestCase
 
     public function test_wrong_password_is_rejected(): void
     {
-        $this->postJson('/api/mobile/login', ['email' => 'admin@cheery.test', 'password' => 'salah'])
+        $this->postJson('/api/mobile/login', ['email' => 'admin@paketpas.test', 'password' => 'salah'])
             ->assertStatus(422)
             ->assertJsonPath('errors.email.0', 'Email atau sandi salah.');
     }
@@ -82,7 +82,7 @@ class MobileAppApiTest extends TestCase
         $this->withToken($token)->getJson('/api/mobile/me')->assertUnauthorized();
         $this->app['auth']->forgetGuards();
 
-        $this->postJson('/api/mobile/login', ['email' => 'admin@cheery.test', 'password' => 'password'])
+        $this->postJson('/api/mobile/login', ['email' => 'admin@paketpas.test', 'password' => 'password'])
             ->assertStatus(422);
     }
 
@@ -162,12 +162,12 @@ class MobileAppApiTest extends TestCase
     {
         $role = Role::create(['name' => 'Kurir', 'slug' => 'kurir', 'is_super_admin' => false]);
         $user = User::create([
-            'name' => 'Kurir', 'email' => 'kurir@cheery.test', 'password' => Hash::make('password'),
+            'name' => 'Kurir', 'email' => 'kurir@paketpas.test', 'password' => Hash::make('password'),
             'role_id' => $role->id, 'is_active' => true,
         ]);
         $this->importOrder('SPXID111', 1);
 
-        $login = $this->postJson('/api/mobile/login', ['email' => 'kurir@cheery.test', 'password' => 'password'])
+        $login = $this->postJson('/api/mobile/login', ['email' => 'kurir@paketpas.test', 'password' => 'password'])
             ->assertOk()
             ->assertJsonPath('user.can.kemas', false)
             ->assertJsonPath('user.can.serah_terima', false)

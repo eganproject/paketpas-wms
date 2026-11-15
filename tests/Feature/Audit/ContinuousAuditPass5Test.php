@@ -21,7 +21,7 @@ class ContinuousAuditPass5Test extends TestCase
     public function test_a_package_cancelled_after_handover_leaves_the_queue(): void
     {
         $this->seed(RolePermissionSeeder::class);
-        $admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $product = Product::create(['sku' => 'FLT-OLI-STD', 'name' => 'Filter Oli', 'unit' => 'pcs']);
 
         $inbound = Inbound::create(['code' => Inbound::nextCode(), 'date' => now(), 'status' => Inbound::STATUS_DRAFT]);

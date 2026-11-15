@@ -9,7 +9,7 @@ import struct
 import zlib
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-USER = {"id": 1, "name": "Rina", "email": "rina@cheerychic.id", "role": "Staff Gudang",
+USER = {"id": 1, "name": "Rina", "email": "rina@paketpas.id", "role": "Staff Gudang",
         "can": {"kemas": True, "serah_terima": True, "pesanan": True}}
 
 
@@ -39,7 +39,7 @@ shipped = []
 def order(i, resi, stage, **extra):
     base = {
         "id": i, "tracking_number": resi, "order_number": f"5781{i:08d}", "marketplace": "TikTok Shop",
-        "store_name": "CheeryChic Official", "buyer_name": ["Siti A.", "Dewi K.", "Ayu P.", "Nina R.", "Putri L."][i % 5],
+        "store_name": "Paketpas Official", "buyer_name": ["Siti A.", "Dewi K.", "Ayu P.", "Nina R.", "Putri L."][i % 5],
         "courier": ["J&T Express", "SPX Express", "JNE"][i % 3], "stage": stage,
         "stage_label": {"belum-qc": "Belum Dikemas", "serah-terima": "Sudah Dikemas", "dikirim": "Dikirim"}[stage],
         "stage_detail": {"belum-qc": "Belum discan sama sekali", "serah-terima": "QC selesai, menunggu diproses",

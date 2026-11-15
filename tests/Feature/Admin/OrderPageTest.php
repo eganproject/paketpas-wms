@@ -27,7 +27,7 @@ class OrderPageTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
     }
 
     protected function order(string $resi, array $attributes = []): ShipmentOrder
@@ -41,7 +41,7 @@ class OrderPageTest extends TestCase
             'tracking_number' => $resi,
             'order_number' => 'ORD-'.$resi,
             'marketplace' => 'Shopee',
-            'store_name' => 'Cheery Official',
+            'store_name' => 'Paketpas Official',
             'courier' => 'SPX',
         ], $attributes));
     }

@@ -1,4 +1,4 @@
-<x-guest-layout title="Unduh Aplikasi Android" heading="WMS Cheery Scan"
+<x-guest-layout title="Unduh Aplikasi Android" heading="Paketpas Scan"
                 subheading="Aplikasi Android untuk Scan Kemas, Serah Terima, Terima Retur, dan absen.">
     @if ($latest && $downloadUrl)
         <div class="text-center">
@@ -24,7 +24,7 @@
             <p class="text-sm font-semibold text-ink-950">Cara pasang</p>
             <ol class="mt-2 list-decimal space-y-1.5 pl-5 text-sm text-ink-600">
                 <li>Tekan <b>Unduh APK</b>, tunggu sampai selesai.</li>
-                <li>Buka berkas <b>wms-cheery-scan.apk</b> dari notifikasi atau folder Download.</li>
+                <li>Buka berkas <b>paketpas-scan.apk</b> dari notifikasi atau folder Download.</li>
                 <li>Bila muncul peringatan, izinkan <b>“Instal aplikasi tidak dikenal”</b> untuk browser ini, lalu tekan <b>Instal</b>.</li>
                 <li>Buka aplikasinya, isi alamat server dan masuk dengan akun WMS.</li>
             </ol>

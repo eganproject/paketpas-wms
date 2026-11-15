@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "WmsCheeryScan"
+rootProject.name = "PaketpasScan"
 include(":app")

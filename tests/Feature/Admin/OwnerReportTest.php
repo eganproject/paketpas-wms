@@ -30,7 +30,7 @@ class OwnerReportTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $this->product = Product::create(['sku' => 'BAJU-1', 'name' => 'Baju Satu', 'unit' => 'pcs', 'min_stock' => 0]);
     }
 

@@ -58,7 +58,7 @@ class JobPositionTest extends AttendanceTestCase
     {
         $this->actingAs($this->admin);
         $packer = JobPosition::create(['name' => 'Packer', 'role_id' => $this->staffRole()->id, 'is_active' => true]);
-        $account = $this->account('rina@cheery.test');
+        $account = $this->account('rina@paketpas.test');
 
         $this->get(route('admin.employees.create'))->assertOk()->assertSee('Packer · role Staff Gudang');
 
@@ -94,8 +94,8 @@ class JobPositionTest extends AttendanceTestCase
     {
         $this->actingAs($this->admin);
         $packer = JobPosition::create(['name' => 'Packer', 'is_active' => true]);
-        $one = $this->account('a@cheery.test');
-        $two = $this->account('b@cheery.test');
+        $one = $this->account('a@paketpas.test');
+        $two = $this->account('b@paketpas.test');
         $this->employee(['name' => 'A', 'job_position_id' => $packer->id, 'user_id' => $one->id]);
         $this->employee(['name' => 'B', 'job_position_id' => $packer->id, 'user_id' => $two->id]);
 
@@ -116,17 +116,17 @@ class JobPositionTest extends AttendanceTestCase
         $this->get(route('admin.users.create'))->assertOk()->assertSee('Rina Marlina · '.$rina->code.' · Packer');
 
         $this->post(route('admin.users.store'), [
-            'name' => 'Rina Marlina', 'email' => 'rina@cheery.test', 'role_id' => $this->staffRole()->id,
+            'name' => 'Rina Marlina', 'email' => 'rina@paketpas.test', 'role_id' => $this->staffRole()->id,
             'password' => 'password123', 'password_confirmation' => 'password123', 'is_active' => 1,
             'employee_id' => $rina->id,
         ])->assertRedirect(route('admin.users.index'));
 
-        $user = User::where('email', 'rina@cheery.test')->firstOrFail();
+        $user = User::where('email', 'rina@paketpas.test')->firstOrFail();
         $this->assertTrue($rina->fresh()->user->is($user));
 
         // Karyawan yang sudah punya akun tidak bisa dipakai akun lain.
         $this->post(route('admin.users.store'), [
-            'name' => 'Lain', 'email' => 'lain@cheery.test', 'role_id' => $this->staffRole()->id,
+            'name' => 'Lain', 'email' => 'lain@paketpas.test', 'role_id' => $this->staffRole()->id,
             'password' => 'password123', 'password_confirmation' => 'password123', 'is_active' => 1,
             'employee_id' => $rina->id,
         ])->assertSessionHasErrors('employee_id');
@@ -136,14 +136,14 @@ class JobPositionTest extends AttendanceTestCase
         // Karyawan HP-only tidak boleh dilepas dari akunnya.
         $rina->update(['attendance_method' => Employee::METHOD_PHONE]);
         $this->put(route('admin.users.update', $user), [
-            'name' => 'Rina Marlina', 'email' => 'rina@cheery.test', 'role_id' => $this->staffRole()->id,
+            'name' => 'Rina Marlina', 'email' => 'rina@paketpas.test', 'role_id' => $this->staffRole()->id,
             'is_active' => 1, 'employee_id' => '',
         ])->assertSessionHasErrors('employee_id');
 
         // Metode lain: boleh dilepas.
         $rina->update(['attendance_method' => Employee::METHOD_BOTH]);
         $this->put(route('admin.users.update', $user), [
-            'name' => 'Rina Marlina', 'email' => 'rina@cheery.test', 'role_id' => $this->staffRole()->id,
+            'name' => 'Rina Marlina', 'email' => 'rina@paketpas.test', 'role_id' => $this->staffRole()->id,
             'is_active' => 1, 'employee_id' => '',
         ])->assertRedirect();
         $this->assertNull($rina->fresh()->user_id);

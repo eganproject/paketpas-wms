@@ -37,7 +37,7 @@ class AttendancePagesTest extends AttendanceTestCase
         $this->get(route('admin.employees.edit', $employee))->assertOk();
         $this->get(route('admin.work-shifts.index'))->assertOk()->assertSee('Reguler');
         $this->get(route('admin.work-shifts.create'))->assertOk();
-        $this->get(route('admin.attendance-settings.index'))->assertOk()->assertSee('CQZ1')->assertSee('Gudang Cheery Chic');
+        $this->get(route('admin.attendance-settings.index'))->assertOk()->assertSee('CQZ1')->assertSee('Gudang Paketpas');
     }
 
     public function test_exports_download(): void
@@ -52,7 +52,7 @@ class AttendancePagesTest extends AttendanceTestCase
     public function test_staff_without_permission_cannot_open_attendance_pages(): void
     {
         $staff = User::create([
-            'name' => 'Staf', 'email' => 'staf@cheery.test', 'password' => 'password', 'is_active' => true,
+            'name' => 'Staf', 'email' => 'staf@paketpas.test', 'password' => 'password', 'is_active' => true,
             'role_id' => Role::where('slug', 'staff-gudang')->value('id'),
         ]);
 

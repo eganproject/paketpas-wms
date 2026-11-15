@@ -1,4 +1,4 @@
-{{-- Kepala menu: logo CheeryChic, dan tombol tutup di ponsel. --}}
+{{-- Kepala menu: logo Paketpas, dan tombol tutup di ponsel. --}}
 <div class="flex shrink-0 items-center justify-between gap-2 px-1.5 pb-2 pt-1 lg:collapsed:justify-center lg:collapsed:px-0">
     <a href="{{ route('admin.dashboard') }}" class="flex min-w-0 items-center gap-2 rounded-lg p-1 hover:bg-ink-100" title="Beranda">
         <x-application-logo class="h-7 w-auto lg:collapsed:hidden" />

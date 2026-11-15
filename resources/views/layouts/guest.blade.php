@@ -33,7 +33,7 @@
         </div>
 
         <p class="mt-6 text-center text-xs text-ink-400">
-            {{ config('app.name', 'CheeryChic') }} &middot; Warehouse Management System &middot; &copy; {{ date('Y') }}
+            {{ config('app.name', 'Paketpas') }} &middot; Warehouse Management System &middot; &copy; {{ date('Y') }}
         </p>
     </div>
 </div>

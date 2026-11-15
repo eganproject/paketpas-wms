@@ -9,7 +9,7 @@ import plugin from 'tailwindcss/plugin';
  * amber, sky) seperti wmsxshopee.
  *
  * Palet `ink` tetap dipakai di seluruh view, jadi cukup nilainya yang
- * diganti. `brand` diambil dari emas logo CheeryChic dan dipakai hemat:
+ * diganti. `brand` diambil dari kuning amber logo Paketpas (#F5B301) dan dipakai hemat:
  * garis tab aktif, bar progres, dan pilihan filter yang aktif.
  */
 const gray = {
@@ -27,17 +27,17 @@ const gray = {
 };
 
 const brand = {
-    50: '#fdf9ec',
-    100: '#faf0cc',
-    200: '#f4e09a',
-    300: '#ebcb63',
-    400: '#e0b93f',
-    500: '#d6ae32',
-    600: '#b98f1f',
-    700: '#946d1b',
-    800: '#78571c',
-    900: '#65481c',
-    950: '#3a270b',
+    50: '#fffbea',
+    100: '#fff3c4',
+    200: '#ffe58a',
+    300: '#ffd54f',
+    400: '#ffc61f',
+    500: '#f5b301',
+    600: '#b07800',
+    700: '#8a5c00',
+    800: '#6e4a06',
+    900: '#5c3d0a',
+    950: '#352102',
 };
 
 /** @type {import('tailwindcss').Config} */

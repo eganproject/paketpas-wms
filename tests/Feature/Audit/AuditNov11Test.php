@@ -23,7 +23,7 @@ class AuditNov11Test extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
     }
 
     public function test_a_supplier_with_a_damaged_goods_return_can_not_be_deleted(): void

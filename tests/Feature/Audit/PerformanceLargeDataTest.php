@@ -33,7 +33,7 @@ class PerformanceLargeDataTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $this->product = Product::create(['sku' => 'KAOS-01', 'name' => 'Kaos', 'unit' => 'pcs']);
 
         $inbound = Inbound::create(['code' => Inbound::nextCode(), 'date' => now(), 'status' => Inbound::STATUS_DRAFT]);
