@@ -30,7 +30,7 @@
         [
             'id' => 'babak-pesanan', 'no' => '01', 'tag' => 'Pesanan masuk',
             'title' => 'Pesanan masuk, langsung tertata jelas.',
-            'lead' => 'Unggah file pesanan TikTok Shop sekali, Paketpas yang memilah. Kamu langsung tahu mana yang belum dikemas, mana yang harus kirim hari ini, dan mana yang batal.',
+            'lead' => 'Unggah file pesanan TikTok Shop atau Shopee sekali, Paketpas yang memilah. Kamu langsung tahu mana yang belum dikemas, mana yang harus kirim hari ini, dan mana yang batal.',
             'points' => ['Resi ganda dan pesanan batal langsung ditandai', 'Tab Belum QC, Sudah QC, Dikirim dengan jumlah di tiap tab', 'Filter prioritas: lewat batas kirim, tunggu stok, pre-order'],
             'web' => ['web-orders.webp', 'paketpas.id/admin/orders', 'Halaman Pesanan: setiap resi hasil import dengan posisinya di gudang'],
             'phones' => [],
@@ -482,7 +482,7 @@
         <div class="mt-10 divide-y divide-night/10 border-y border-night/10">
             @foreach ([
                 ['Paketpas cocok untuk toko seperti apa?', 'Untuk seller marketplace yang punya gudang atau ruang stok sendiri dan mulai merasa kewalahan mengurus packing, pengiriman, dan stok. Baik tim gudang dua orang maupun puluhan orang.'],
-                ['Marketplace apa saja yang didukung?', 'Import otomatis saat ini membaca file pesanan TikTok Shop. Penjualan dari marketplace lain seperti Shopee, Tokopedia, atau Lazada tetap bisa dicatat sebagai penjualan manual, jadi stoknya tetap satu.'],
+                ['Marketplace apa saja yang didukung?', 'Import otomatis membaca file pesanan TikTok Shop dan Shopee, cukup unggah file eksportnya dan Paketpas mengenali sendiri asalnya. Penjualan dari marketplace lain seperti Tokopedia atau Lazada tetap bisa dicatat sebagai penjualan manual, jadi stoknya tetap satu.'],
                 ['Apakah harus membeli alat scanner?', 'Tidak harus. Aplikasi Android Paketpas Scan memakai kamera HP sebagai pemindai. Kalau kamu sudah punya scanner barcode, itu juga bisa dipakai di versi web.'],
                 ['Tim gudang saya tidak terlalu paham teknologi. Bisa?', 'Bisa. Alurnya dibuat sederhana: scan, lihat tanda cocok atau tidak, lanjut. Layar aplikasinya besar dan jelas supaya nyaman dipakai sambil bekerja.'],
                 ['Bagaimana dengan data stok yang sudah ada?', 'Data barang bisa diimpor dari Excel, lalu stok awal dicatat lewat penerimaan barang atau stok opname. Setelah itu stok bergerak sendiri mengikuti aktivitas gudang.'],

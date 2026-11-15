@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ShipmentImport;
 use App\Models\ShipmentOrder;
 use App\Models\ShipmentOrderItem;
-use App\Services\TikTokImportService;
+use App\Services\OrderFileImporter;
 use App\Services\ShipmentImportFailureExportService;
 use App\Services\ShipmentOrderResolver;
 use App\Support\DateRange;
@@ -21,7 +21,7 @@ use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
- * Import nomor resi dari berkas eksport pesanan TikTok Shop.
+ * Import nomor resi dari berkas eksport pesanan TikTok Shop atau Shopee.
  *
  * Data ini menjadi rujukan saat scan resi pada barang keluar marketplace
  * dan pada penerimaan retur.
@@ -29,7 +29,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class ShipmentImportController extends Controller implements HasMiddleware
 {
     public function __construct(
-        protected TikTokImportService $importer,
+        protected OrderFileImporter $importer,
         protected ShipmentOrderResolver $resolver,
     ) {
     }
@@ -119,13 +119,13 @@ class ShipmentImportController extends Controller implements HasMiddleware
         $request->validate([
             'file' => ['required', 'file', 'extensions:xlsx,xls,csv,txt', 'max:20480'],
         ], [
-            'file.extensions' => 'Berkas harus berakhiran .xlsx, .xls, atau .csv — hasil eksport langsung dari TikTok Shop.',
+            'file.extensions' => 'Berkas harus berakhiran .xlsx, .xls, atau .csv — hasil eksport langsung dari TikTok Shop atau Shopee.',
             'file.max' => 'Ukuran berkas melebihi 20 MB.',
         ], ['file' => 'berkas']);
 
         $import = $this->importer->import($request->file('file'));
 
-        $message = "{$import->order_count} resi baru dan {$import->item_count} baris barang berhasil diimport.";
+        $message = ($import->source === 'shopee' ? 'Berkas Shopee: ' : 'Berkas TikTok Shop: ')."{$import->order_count} resi baru dan {$import->item_count} baris barang berhasil diimport.";
 
         if ($import->skipped_count > 0) {
             $message .= " {$import->skipped_count} resi sudah ada di sistem dan dilewati.";

@@ -1,6 +1,6 @@
 <x-app-layout title="Riwayat Import">
     <x-ui.page-header title="Import Resi"
-                      subtitle="Data resi hasil eksport TikTok Shop yang dipakai saat QC Kemas dan retur.">
+                      subtitle="Data resi hasil eksport TikTok Shop dan Shopee yang dipakai saat QC Kemas dan retur.">
         <x-slot name="actions">
             @can('imports.create')
                 <x-ui.button :href="route('admin.imports.create')" icon="plus">Import Excel</x-ui.button>
@@ -32,7 +32,7 @@
                             <tr>
                                 <td>
                                     <p class="max-w-xs truncate text-sm font-medium text-ink-950">{{ $import->filename }}</p>
-                                    <p class="text-[11px] text-ink-400">{{ $import->source }}</p>
+                                    <p class="text-[11px] text-ink-400">{{ $import->source === 'shopee' ? 'Shopee' : 'TikTok Shop' }}</p>
                                 </td>
                                 <td class="text-right">
                                     <p class="text-sm font-semibold text-ink-950">{{ $import->order_count }}</p>
