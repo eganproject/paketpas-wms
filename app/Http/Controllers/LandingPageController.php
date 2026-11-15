@@ -23,6 +23,7 @@ class LandingPageController extends Controller
         return view('landing', [
             'contactUrl' => $contactUrl,
             'contactIsExternal' => filled($whatsapp) || filled($email),
+            'contactName' => filled($whatsapp) ? config('landing.contact_name') : null,
         ]);
     }
 }

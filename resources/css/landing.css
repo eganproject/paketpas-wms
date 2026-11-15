@@ -13,7 +13,13 @@
 @layer base {
     html {
         scroll-behavior: smooth;
+        /* Elemen yang masuk dari samping tidak boleh memunculkan scroll mendatar. */
+        overflow-x: clip;
         -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        overflow-x: clip;
     }
 
     [id] {
@@ -26,5 +32,127 @@
 
     details > summary::-webkit-details-marker {
         display: none;
+    }
+}
+
+/* ------------------------------------------------------------------
+ * Animasi landing page.
+ *
+ * Elemen [data-reveal] muncul saat masuk layar (kelas .is-visible dipasang
+ * oleh resources/js/landing.js). Tanpa JavaScript (tidak ada kelas .js di
+ * <html>) semuanya langsung tampil. Pengguna yang memilih "kurangi gerakan"
+ * di perangkatnya tidak melihat animasi apa pun.
+ * ------------------------------------------------------------------ */
+@layer components {
+    .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+            opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms),
+            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+    }
+
+    .js [data-reveal='left'] { transform: translateX(-28px); }
+    .js [data-reveal='right'] { transform: translateX(28px); }
+    .js [data-reveal='zoom'] { transform: translateY(16px) scale(0.96); }
+
+    .js [data-reveal].is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* Header: garis tepi dan bayangan tipis setelah halaman digulir. */
+    .lp-header { transition: box-shadow 0.3s, border-color 0.3s; }
+    .lp-header.is-scrolled {
+        border-color: rgb(17 24 39 / 0.06);
+        box-shadow: 0 8px 24px -16px rgb(17 24 39 / 0.25);
+    }
+
+    /* Garis bawah tautan menu tumbuh dari kiri. */
+    .lp-link { position: relative; }
+    .lp-link::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+        height: 2px;
+        border-radius: 2px;
+        background: theme('colors.brand.500');
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+    }
+    .lp-link:hover::after { transform: scaleX(1); }
+
+    /* Tombol sedikit terangkat saat disorot, tertekan saat diklik. */
+    .lp-btn { transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease; }
+    .lp-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -12px rgb(17 24 39 / 0.45); }
+    .lp-btn:active { transform: translateY(0); }
+
+    /* Kartu terangkat saat disorot. */
+    .lp-card { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+    .lp-card:hover {
+        transform: translateY(-4px);
+        border-color: rgb(245 179 1 / 0.6);
+        box-shadow: 0 20px 40px -24px rgb(17 24 39 / 0.35);
+    }
+    .lp-card:hover .lp-icon { transform: rotate(-6deg) scale(1.08); }
+    .lp-icon { transition: transform 0.3s ease, background-color 0.3s, color 0.3s; }
+    .lp-feature:hover .lp-icon { transform: translateY(-3px) rotate(-6deg); }
+
+    /* Stabilo di bawah "Bisnis naik kelas." tumbuh dari kiri. */
+    .js .lp-highlight { transform: scaleX(0); transform-origin: left; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s; }
+    .js .is-visible .lp-highlight, .js .is-visible.lp-highlight { transform: scaleX(1); }
+
+    /* Garis penghubung 4 langkah alur kerja. */
+    .js .lp-steps-line { transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s; opacity: 0.5; }
+    .js .lp-steps.is-visible .lp-steps-line { transform: scaleX(1); }
+
+    /* Grafik batang tumbuh dari bawah, batang mendatar tumbuh dari kiri. */
+    .js .lp-bar { transform: scaleY(0); transform-origin: bottom; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--d, 0ms) + 250ms); }
+    .js .lp-chart.is-visible .lp-bar { transform: scaleY(1); }
+    .js .lp-hbar { transform: scaleX(0); transform-origin: left; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms); }
+    .js .lp-chart.is-visible .lp-hbar { transform: scaleX(1); }
+
+    /* Isi tanya jawab turun pelan saat dibuka. */
+    .lp-faq[open] .lp-faq-body { animation: lp-fade-down 0.35s ease both; }
+
+    /* Gerak terus-menerus yang halus. */
+    .lp-float { animation: lp-float 6s ease-in-out infinite; }
+    .lp-float--alt { animation-duration: 5s; animation-delay: -2.5s; }
+    .lp-bob { animation: lp-float 4s ease-in-out infinite; }
+    .lp-blob { animation: lp-drift 14s ease-in-out infinite alternate; }
+    .lp-blob--slow { animation-duration: 20s; animation-direction: alternate-reverse; }
+    .lp-laser { animation: lp-laser 2.2s ease-in-out infinite; }
+    .lp-progress { animation: lp-progress 3.3s ease-in-out infinite; }
+    .lp-pulse { animation: lp-pulse 2.4s ease-in-out infinite; }
+    .lp-ping > span:first-child { animation: lp-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
+    .lp-shake.is-visible { animation: lp-shake 0.6s ease 1.8s both; }
+    .lp-glow { animation: lp-glow 2.8s ease-in-out infinite; }
+    .lp-marquee { animation: lp-marquee 40s linear infinite; }
+    .lp-marquee:hover { animation-play-state: paused; }
+}
+
+@keyframes lp-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+@keyframes lp-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(40px, 30px) scale(1.15); } }
+@keyframes lp-laser { 0%, 100% { top: 22%; } 50% { top: 74%; } }
+@keyframes lp-progress { 0% { width: 8%; } 33% { width: 36%; } 66% { width: 68%; } 90%, 100% { width: 100%; } }
+@keyframes lp-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgb(16 185 129 / 0); } 50% { box-shadow: 0 0 0 6px rgb(16 185 129 / 0.12); } }
+@keyframes lp-ping { 75%, 100% { transform: scale(2.4); opacity: 0; } }
+@keyframes lp-shake { 0%, 100% { transform: none; } 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+@keyframes lp-glow { 0%, 100% { box-shadow: 0 0 0 0 rgb(245 179 1 / 0.45); } 50% { box-shadow: 0 0 0 10px rgb(245 179 1 / 0); } }
+@keyframes lp-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes lp-fade-down { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+    .js [data-reveal], .js .lp-highlight, .js .lp-steps-line, .js .lp-bar, .js .lp-hbar {
+        opacity: 1 !important;
+        transform: none !important;
     }
 }

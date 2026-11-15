@@ -79,12 +79,12 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-Dr6cbh5h.css",
+    "file": "assets/app-BE15gIbO.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/css/landing.css": {
-    "file": "assets/landing-DgePyO9y.css",
+    "file": "assets/landing-CXHDtTxy.css",
     "src": "resources/css/landing.css",
     "isEntry": true
   },
@@ -97,5 +97,11 @@
       "node_modules/barcode-detector/dist/es/ponyfill.js",
       "node_modules/zxing-wasm/dist/reader/zxing_reader.wasm?url"
     ]
+  },
+  "resources/js/landing.js": {
+    "file": "assets/landing-CPBOkTFm.js",
+    "name": "landing",
+    "src": "resources/js/landing.js",
+    "isEntry": true
   }
 }
