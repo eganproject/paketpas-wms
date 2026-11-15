@@ -56,12 +56,16 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Inter Variable', 'InterVariable', 'Inter', ...defaultTheme.fontFamily.sans],
+                // Huruf judul landing page, sama dengan tulisan pada logo.
+                display: ['Sora', 'Inter Variable', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 ink: gray,
                 gray,
                 brand,
                 control: '#efefef',
+                // Hitam tinta logo Paketpas.
+                night: '#111827',
             },
             borderRadius: {
                 xl: '12px',
