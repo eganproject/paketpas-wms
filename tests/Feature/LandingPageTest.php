@@ -14,9 +14,15 @@ class LandingPageTest extends TestCase
         $this->get(route('landing'))
             ->assertOk()
             ->assertSee('Paket keluar pas.', false)
-            ->assertSee('id="alur"', false)
+            ->assertSee('id="presentasi"', false)
+            ->assertSee('images/landing/web-orders.webp', false)
+            ->assertSee('images/landing/app-lengkap.webp', false)
             ->assertSee('id="fitur"', false)
             ->assertSee('id="tanya"', false)
+            ->assertSee('id="harga"', false)
+            ->assertSee(config('landing.pricing.rent.price'))
+            ->assertSee(config('landing.pricing.setup.price'))
+            ->assertSee(config('landing.pricing.buy.price'))
             ->assertSee('images/paketpas-horizontal.png', false)
             ->assertSee(route('login'), false);
     }
@@ -51,5 +57,14 @@ class LandingPageTest extends TestCase
         $this->get(route('landing'))
             ->assertOk()
             ->assertSee('mailto:halo@paketpas.id', false);
+    }
+
+    public function test_each_plan_opens_whatsapp_with_its_own_message(): void
+    {
+        config(['landing.whatsapp' => '628975568102', 'landing.pricing.rent.wa' => 'Halo, paket sewa']);
+
+        $this->get(route('landing'))
+            ->assertOk()
+            ->assertSee('https://wa.me/628975568102?text='.rawurlencode('Halo, paket sewa'), false);
     }
 }

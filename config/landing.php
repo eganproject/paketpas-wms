@@ -19,4 +19,51 @@ return [
     'contact_name' => env('LANDING_CONTACT_NAME', 'Ega Nugraha'),
     'whatsapp_message' => env('LANDING_WHATSAPP_MESSAGE', 'Halo Kak Ega, saya tertarik dengan Paketpas dan ingin lihat demo WMS untuk toko saya.'),
     'email' => env('LANDING_EMAIL', ''),
+
+    /*
+     * Harga di bagian "Harga" landing page. Ubah angka atau isi di sini saja,
+     * tampilan mengikuti. 'wa' adalah pesan pembuka WhatsApp untuk paket itu.
+     */
+    'pricing' => [
+        'rent' => [
+            'name' => 'Sewa',
+            'tagline' => 'Mulai ringan, langsung jalan.',
+            'price' => 'Rp 750 rb',
+            'period' => '/ bulan',
+            'note' => 'Minimal 6 bulan, atau Rp 7,5 juta per tahun (hemat Rp 1,5 juta).',
+            'features' => [
+                'Semua fitur web dan aplikasi Android Paketpas Scan',
+                'Import pesanan, QC kemas, serah terima, retur, stok, dan laporan',
+                'Pembaruan sistem dan perbaikan rutin',
+                'Bantuan via WhatsApp',
+            ],
+            'wa' => 'Halo Kak Ega, saya tertarik dengan paket Sewa Paketpas.',
+        ],
+        'setup' => [
+            'name' => 'Implementasi & Kustomisasi',
+            'tagline' => 'Biaya awal paket sewa, dikerjakan jarak jauh di bulan pertama.',
+            'price' => 'Rp 7 juta',
+            'period' => 'sekali bayar',
+            'features' => [
+                'Analisis alur gudang kamu sekarang',
+                'Penyesuaian sistem selama bulan pertama sesuai proses bisnis',
+                'Migrasi data produk dan stok awal',
+                'Pelatihan tim secara online',
+            ],
+        ],
+        'buy' => [
+            'name' => 'Beli Putus',
+            'tagline' => 'Sekali bayar, sistem jadi milikmu.',
+            'price' => 'Rp 30 juta',
+            'period' => 'sekali bayar',
+            'note' => 'Maintenance opsional Rp 5 juta per tahun.',
+            'features' => [
+                'Semua fitur web dan aplikasi Android Paketpas Scan',
+                'Implementasi dan kustomisasi bulan pertama sudah termasuk',
+                'Migrasi data dan pelatihan tim online',
+                'Tanpa biaya bulanan',
+            ],
+            'wa' => 'Halo Kak Ega, saya tertarik dengan paket Beli Putus Paketpas.',
+        ],
+    ],
 ];

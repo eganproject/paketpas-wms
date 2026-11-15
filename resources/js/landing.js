@@ -47,6 +47,35 @@ function countLoops() {
     });
 }
 
+function readingProgress() {
+    const bar = document.querySelector('[data-progress]');
+    if (!bar) return;
+
+    const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = `${max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0}%`;
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+}
+
+function chapterNav() {
+    const links = document.querySelectorAll('[data-chapter-link]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((link) => link.classList.toggle('is-active', link.dataset.chapterLink === entry.target.id));
+        });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+
+    document.querySelectorAll('[data-chapter]').forEach((el) => observer.observe(el));
+}
+
 revealOnScroll();
 headerShadow();
 countLoops();
+readingProgress();
+chapterNav();

@@ -27,9 +27,9 @@ def png(rgb, size=96):
 IMAGES = {"maroon": png((128, 28, 46)), "cream": png((236, 224, 200))}
 
 ITEMS = [
-    {"id": 11, "sku": "CC-DRS-MAWAR-M", "name": "Dress Mawar Brokat - Maroon M", "barcode": "8991234500035",
+    {"id": 11, "sku": "PP-DRS-MAWAR-M", "name": "Dress Mawar Brokat - Maroon M", "barcode": "8991234500035",
      "image_url": "/img/maroon.png", "unit": "pcs", "stock": 24, "quantity": 2},
-    {"id": 12, "sku": "CC-HJB-PASMINA-CRM", "name": "Pashmina Ceruti Cream", "barcode": "8991234500042",
+    {"id": 12, "sku": "PP-HJB-PASMINA-CRM", "name": "Pashmina Ceruti Cream", "barcode": "8991234500042",
      "image_url": "/img/cream.png", "unit": "pcs", "stock": 51, "quantity": 1},
 ]
 scanned = {11: 0, 12: 0}
@@ -46,9 +46,9 @@ def order(i, resi, stage, **extra):
                          "dikirim": "Dikirim 01 Nov 2026 09:12"}[stage],
         "ready_label": "", "kind": "Normal", "is_priority": False, "ship_by": None, "deadline_label": None,
         "deadline_tone": None, "total_quantity": 3, "scanned_quantity": 0, "shipped_at": None,
-        "items": [{"sku": "CC-DRS-MAWAR-M", "name": "Dress Mawar Brokat - Maroon M", "quantity": 2,
+        "items": [{"sku": "PP-DRS-MAWAR-M", "name": "Dress Mawar Brokat - Maroon M", "quantity": 2,
                    "image_url": "/img/maroon.png"},
-                  {"sku": "CC-HJB-PASMINA-CRM", "name": "Pashmina Ceruti Cream", "quantity": 1,
+                  {"sku": "PP-HJB-PASMINA-CRM", "name": "Pashmina Ceruti Cream", "quantity": 1,
                    "image_url": "/img/cream.png"}],
     }
     base.update(extra)
@@ -58,7 +58,7 @@ def order(i, resi, stage, **extra):
 BELUM = [
     order(1, "JX3820194470", "belum-qc", ready_label="Siap dikemas", is_priority=True, deadline_label="Hari ini", deadline_tone="danger"),
     order(2, "SPXID04918822731", "belum-qc", ready_label="Siap dikemas", deadline_label="Besok", deadline_tone="warning"),
-    order(3, "JX3820194488", "belum-qc", ready_label="Menunggu stok (CC-DRS-MAWAR-L kurang 3)", kind="PO 7 hari", deadline_label="Sisa 5 hari", deadline_tone="neutral"),
+    order(3, "JX3820194488", "belum-qc", ready_label="Menunggu stok (PP-DRS-MAWAR-L kurang 3)", kind="PO 7 hari", deadline_label="Sisa 5 hari", deadline_tone="neutral"),
     order(4, "CM8827361920", "belum-qc", ready_label="Siap dikemas", stage_detail="Barang 1/3 unit discan", scanned_quantity=1, deadline_label="Besok", deadline_tone="warning"),
 ]
 SUDAH = [order(i, f"SPXID0491882{2700 + i}", "serah-terima", scanned_quantity=3) for i in range(5, 9)]

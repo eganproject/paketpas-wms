@@ -20,7 +20,14 @@ class LandingPageController extends Controller
             default => route('login'),
         };
 
+        // Tombol tiap paket harga membuka WhatsApp dengan pesan paket itu.
+        $planUrl = fn (?string $message) => filled($whatsapp) && filled($message)
+            ? 'https://wa.me/'.$whatsapp.'?text='.rawurlencode($message)
+            : $contactUrl;
+
         return view('landing', [
+            'pricing' => config('landing.pricing', []),
+            'planUrl' => $planUrl,
             'contactUrl' => $contactUrl,
             'contactIsExternal' => filled($whatsapp) || filled($email),
             'contactName' => filled($whatsapp) ? config('landing.contact_name') : null,
