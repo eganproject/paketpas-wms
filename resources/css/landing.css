@@ -1,0 +1,30 @@
+/*
+ * Gaya landing page (halaman depan publik). Terpisah dari app.css supaya
+ * aturan dasar panel admin (teks 14px, kontrol 32px) tidak ikut terbawa.
+ */
+@import '@fontsource-variable/inter';
+@import '@fontsource/sora/600.css';
+@import '@fontsource/sora/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    [id] {
+        scroll-margin-top: 80px;
+    }
+
+    details > summary {
+        list-style: none;
+    }
+
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+}

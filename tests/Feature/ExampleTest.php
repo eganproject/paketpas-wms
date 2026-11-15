@@ -7,12 +7,10 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /**
-     * The root URL forwards visitors into the admin panel.
+     * Alamat utama menampilkan landing page, bukan lagi dialihkan ke panel admin.
      */
-    public function test_the_root_url_redirects_to_the_admin_panel(): void
+    public function test_the_root_url_shows_the_landing_page(): void
     {
-        $response = $this->get('/');
-
-        $response->assertRedirect('/admin');
+        $this->get('/')->assertOk()->assertSee('Paketpas');
     }
 }

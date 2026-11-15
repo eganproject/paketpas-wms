@@ -48,10 +48,12 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\WorkShiftController;
 use App\Http\Controllers\Attendance\IclockController;
 use App\Http\Controllers\AppDownloadPageController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/admin');
+// Halaman depan publik: landing page Paketpas. Panel admin tetap di /admin.
+Route::get('/', LandingPageController::class)->name('landing');
 
 // Halaman unduh aplikasi Android untuk pemasangan pertama (tanpa login,
 // dibuka dari browser HP atau lewat QR di Pengaturan > Aplikasi Android).
