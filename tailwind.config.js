@@ -9,7 +9,7 @@ import plugin from 'tailwindcss/plugin';
  * amber, sky) seperti wmsxshopee.
  *
  * Palet `ink` tetap dipakai di seluruh view, jadi cukup nilainya yang
- * diganti. `brand` diambil dari emas logo CheeryChic dan dipakai hemat:
+ * diganti. `brand` diambil dari emas logo Paketpas dan dipakai hemat:
  * garis tab aktif, bar progres, dan pilihan filter yang aktif.
  */
 const gray = {

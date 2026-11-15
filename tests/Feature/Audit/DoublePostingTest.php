@@ -21,7 +21,7 @@ class DoublePostingTest extends TestCase
     public function test_resubmitting_a_posted_document_does_not_move_stock_twice(): void
     {
         $this->seed(RolePermissionSeeder::class);
-        $admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $product = Product::create(['sku' => 'A-1', 'name' => 'Barang A', 'unit' => 'pcs', 'min_stock' => 0]);
         $supplier = Supplier::create(['code' => 'SUP-0001', 'name' => 'Pemasok']);
 

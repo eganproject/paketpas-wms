@@ -107,7 +107,7 @@ class MobileAppReleaseController extends Controller implements HasMiddleware
 
         return Storage::disk(MobileAppRelease::DISK)->download(
             $release->file_path,
-            "wms-cheery-scan-{$release->version_name}.apk",
+            "paketpas-scan-{$release->version_name}.apk",
             ['Content-Type' => 'application/vnd.android.package-archive'],
         );
     }

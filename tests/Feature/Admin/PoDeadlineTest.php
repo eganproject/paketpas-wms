@@ -30,7 +30,7 @@ class PoDeadlineTest extends TestCase
 
         $this->travelTo(Carbon::parse('2026-06-12 09:00'));
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
 
         $po7 = Product::create(['sku' => 'Helena 3', 'name' => 'Helena - 3', 'unit' => 'pcs', 'min_stock' => 0]);
         $po14 = Product::create(['sku' => 'Kalea 1', 'name' => 'Kalea - 1', 'unit' => 'pcs', 'min_stock' => 0]);

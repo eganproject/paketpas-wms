@@ -6,7 +6,7 @@ set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 OUT="${OUT:-$PWD/screenshots}"
-PKG=id.cheerychic.wmsscan
+PKG=id.paketpas.wmsscan
 APK="$HERE/../../app/build/outputs/apk/debug/app-debug.apk"
 mkdir -p "$OUT"
 
@@ -80,15 +80,15 @@ PY
 scan() { adb shell input text "$1"; adb shell input keyevent 66; sleep 1.5; }
 
 SERVER='http://10.0.2.2:8000'
-USER_JSON='{&quot;id&quot;:1,&quot;name&quot;:&quot;Rina&quot;,&quot;email&quot;:&quot;rina@cheerychic.id&quot;,&quot;role&quot;:&quot;Staff Gudang&quot;,&quot;can&quot;:{&quot;kemas&quot;:true,&quot;serah_terima&quot;:true,&quot;pesanan&quot;:true}}'
+USER_JSON='{&quot;id&quot;:1,&quot;name&quot;:&quot;Rina&quot;,&quot;email&quot;:&quot;rina@paketpas.id&quot;,&quot;role&quot;:&quot;Staff Gudang&quot;,&quot;can&quot;:{&quot;kemas&quot;:true,&quot;serah_terima&quot;:true,&quot;pesanan&quot;:true}}'
 
 # 1. Login
 adb shell am start -n $PKG/.MainActivity >/dev/null; sleep 3
-prefs "<?xml version='1.0' encoding='utf-8' standalone='yes' ?><map><string name=\"server\">https://wms.cheerychic.id</string><string name=\"email\">rina@cheerychic.id</string></map>"
+prefs "<?xml version='1.0' encoding='utf-8' standalone='yes' ?><map><string name=\"server\">https://wms.paketpas.id</string><string name=\"email\">rina@paketpas.id</string></map>"
 launch; shot 01-login 9
 
 # 2. Beranda (sudah login)
-prefs "<?xml version='1.0' encoding='utf-8' standalone='yes' ?><map><string name=\"server\">$SERVER</string><string name=\"email\">rina@cheerychic.id</string><string name=\"token\">demo</string><string name=\"user\">$USER_JSON</string></map>"
+prefs "<?xml version='1.0' encoding='utf-8' standalone='yes' ?><map><string name=\"server\">$SERVER</string><string name=\"email\">rina@paketpas.id</string><string name=\"token\">demo</string><string name=\"user\">$USER_JSON</string></map>"
 launch; shot 02-beranda 5
 
 # 3. Scan Kemas

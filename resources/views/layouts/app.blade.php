@@ -95,7 +95,7 @@
 
         <footer data-app-footer class="hidden px-4 pb-5 text-xs text-ink-400 sm:px-6 lg:block">
             <div class="mx-auto max-w-7xl border-t border-ink-100 pt-3">
-                &copy; {{ date('Y') }} {{ config('app.name', 'CheeryChic') }}
+                &copy; {{ date('Y') }} {{ config('app.name', 'Paketpas') }}
             </div>
         </footer>
     </div>

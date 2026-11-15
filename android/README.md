@@ -1,4 +1,4 @@
-# WMS Cheery Scan (Android)
+# Paketpas Scan (Android)
 
 Aplikasi Android khusus **Scan Kemas** dan **Scan Serah Terima Paket**, plus
 daftar pesanan **Belum Dikemas / Sudah Dikemas / Dikirim**. Memakai API
@@ -9,7 +9,7 @@ akses sama persis dengan halaman QC Kemas dan Serah Terima Paket di web.
 
 Setiap perubahan di folder `android/` yang masuk ke `main` dibangun otomatis
 oleh GitHub Actions (`.github/workflows/android.yml`) dan diterbitkan di
-**Releases** repo ini dengan nama `wms-cheery-scan.apk`. Buka halaman Releases
+**Releases** repo ini dengan nama `paketpas-scan.apk`. Buka halaman Releases
 dari HP (login GitHub), unduh, lalu pasang. Versi baru cukup dipasang menimpa
 yang lama.
 
@@ -22,7 +22,7 @@ Android terbuka → operator menekan **Perbarui**. Bisa juga dicek manual lewat
 tulisan **Periksa pembaruan** di bawah Beranda.
 
 - Pertama kali Android meminta izin **Instal aplikasi tidak dikenal** untuk
-  WMS Cheery Scan (aplikasi membuka layar pengaturannya).
+  Paketpas Scan (aplikasi membuka layar pengaturannya).
 - Hanya berjalan bila APK lama dan baru ditandatangani **kunci yang sama**
   (lihat *Kunci tanda tangan*). Tanpa secret keystore, tiap build memakai kunci
   debug acak, sehingga update selalu ditolak Android.
@@ -43,7 +43,7 @@ tulisan **Periksa pembaruan** di bawah Beranda.
 
 | Variabel | Arti |
 |---|---|
-| `MOBILE_APP_GITHUB_REPO` | repo sumber rilis (bawaan `eganproject/wms-cheery`) |
+| `MOBILE_APP_GITHUB_REPO` | repo sumber rilis (bawaan `eganproject/paketpas-wms`) |
 | `MOBILE_APP_GITHUB_TOKEN` | isi bila repo private; APK lalu diunduh lewat server (`/api/mobile/app-download`) |
 | `MOBILE_APP_MIN_VERSION_CODE` | HP dengan versi di bawah angka ini wajib update (jendela tidak bisa ditutup) |
 | `MOBILE_APP_VERSION_CODE` + `MOBILE_APP_DOWNLOAD_URL` (+ `_VERSION_NAME`, `_NOTES`) | isi manual tanpa GitHub |
@@ -52,7 +52,7 @@ tulisan **Periksa pembaruan** di bawah Beranda.
 
 1. Isi **alamat server** = alamat yang dibuka di browser untuk WMS, mis.
    `https://wms.domain.com`. Untuk server lokal Laragon dari HP di Wi-Fi yang
-   sama pakai IP komputernya, mis. `http://192.168.1.10/wms-cheery/public`
+   sama pakai IP komputernya, mis. `http://192.168.1.10/paketpas-wms/public`
    (nama `*.test` milik Laragon tidak dikenali HP).
 2. Login dengan email + sandi yang sama dengan web.
 3. Scan bisa lewat scanner genggam/PDA (mode keyboard, akhiri dengan Enter),

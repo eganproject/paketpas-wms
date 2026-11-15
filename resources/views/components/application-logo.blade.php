@@ -1,21 +1,21 @@
 @props(['variant' => 'horizontal'])
 {{--
-    Logo CheeryChic.
+    Logo Paketpas.
 
-    variant="horizontal" (bawaan): monogram CC di samping tulisan, untuk navbar
+    variant="horizontal" (bawaan): monogram P di samping tulisan, untuk navbar
     dan menu samping.
-    variant="full": monogram di atas tulisan "CheeryChic", untuk halaman masuk.
-    variant="mark": monogram CC saja.
+    variant="full": monogram di atas tulisan "Paketpas", untuk halaman masuk.
+    variant="mark": monogram P saja.
 
-    Berkasnya PNG berlatar transparan di public/images, dibuat dari logo resmi.
+    Berkasnya PNG berlatar transparan di public/images, sementara (placeholder) sampai logo resmi Paketpas tersedia.
     Tinggi diatur lewat class (mis. h-7); lebarnya mengikuti (w-auto).
 --}}
 @php
     $src = match ($variant) {
-        'full' => 'images/cheerychic-logo.png',
-        'mark' => 'images/cheerychic-mark.png',
-        default => 'images/cheerychic-horizontal.png',
+        'full' => 'images/paketpas-logo.png',
+        'mark' => 'images/paketpas-mark.png',
+        default => 'images/paketpas-horizontal.png',
     };
 @endphp
-<img src="{{ asset($src) }}" alt="{{ config('app.name', 'CheeryChic') }}"
+<img src="{{ asset($src) }}" alt="{{ config('app.name', 'Paketpas') }}"
      {{ $attributes->merge(['class' => 'select-none']) }} draggable="false">

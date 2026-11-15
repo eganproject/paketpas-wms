@@ -24,7 +24,7 @@ class MobileAppPublisher
             ]);
         }
 
-        $path = $file->storeAs('mobile-app', "wms-cheery-scan-{$info->versionCode}.apk", MobileAppRelease::DISK);
+        $path = $file->storeAs('mobile-app', "paketpas-scan-{$info->versionCode}.apk", MobileAppRelease::DISK);
 
         return MobileAppRelease::create([
             'version_code' => $info->versionCode,
@@ -47,10 +47,10 @@ class MobileAppPublisher
             throw ValidationException::withMessages(['apk' => $e->getMessage()]);
         }
 
-        $package = config('services.mobile_app.package', 'id.cheerychic.wmsscan');
+        $package = config('services.mobile_app.package', 'id.paketpas.wmsscan');
         if ($info->package !== $package) {
             throw ValidationException::withMessages([
-                'apk' => "APK ini milik aplikasi lain ({$info->package}), bukan WMS Cheery Scan ({$package}).",
+                'apk' => "APK ini milik aplikasi lain ({$info->package}), bukan Paketpas Scan ({$package}).",
             ]);
         }
 

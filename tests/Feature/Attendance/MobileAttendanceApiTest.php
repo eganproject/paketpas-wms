@@ -23,7 +23,7 @@ class MobileAttendanceApiTest extends AttendanceTestCase
         Storage::fake('local');
 
         $this->packer = User::create([
-            'name' => 'Rina', 'email' => 'rina@cheery.test', 'password' => 'password', 'is_active' => true,
+            'name' => 'Rina', 'email' => 'rina@paketpas.test', 'password' => 'password', 'is_active' => true,
             'role_id' => Role::where('slug', 'staff-gudang')->value('id'),
         ]);
         [, $this->token] = MobileToken::issue($this->packer, 'HP Rina');
@@ -63,7 +63,7 @@ class MobileAttendanceApiTest extends AttendanceTestCase
 
         $response->assertCreated()
             ->assertJsonPath('punch.time', '07:58')
-            ->assertJsonPath('punch.location', 'Gudang Cheery Chic')
+            ->assertJsonPath('punch.location', 'Gudang Paketpas')
             ->assertJsonPath('today.next_action', 'out')
             ->assertJsonPath('today.day.label', 'Hadir');
 

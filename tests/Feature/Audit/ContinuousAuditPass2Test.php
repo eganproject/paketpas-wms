@@ -27,7 +27,7 @@ class ContinuousAuditPass2Test extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->superAdmin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->superAdmin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $this->admin = User::factory()->create(['role_id' => Role::where('slug', 'admin')->value('id'), 'is_active' => true]);
     }
 
@@ -85,7 +85,7 @@ class ContinuousAuditPass2Test extends TestCase
         $this->assertFalse($this->admin->refresh()->isSuperAdmin());
 
         $this->actingAs($this->admin)->post(route('admin.users.store'), [
-            'name' => 'Penyusup', 'email' => 'x@cheery.test',
+            'name' => 'Penyusup', 'email' => 'x@paketpas.test',
             'role_id' => Role::where('slug', 'super-admin')->value('id'), 'is_active' => 1,
             'password' => 'Rahasia#2026', 'password_confirmation' => 'Rahasia#2026',
         ])->assertSessionHasErrors('role_id');

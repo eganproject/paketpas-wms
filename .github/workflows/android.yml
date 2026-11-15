@@ -1,7 +1,7 @@
 name: Android APK
 
 # Membangun aplikasi Android (folder android/) setiap kali kodenya berubah.
-# Di main, APK-nya diterbitkan sebagai GitHub Release "WMS Cheery Scan" supaya
+# Di main, APK-nya diterbitkan sebagai GitHub Release "Paketpas Scan" supaya
 # bisa diunduh langsung dari HP.
 on:
   push:
@@ -41,25 +41,25 @@ jobs:
           fi
           chmod +x gradlew
           ./gradlew --no-daemon assembleRelease
-          cp app/build/outputs/apk/release/app-release.apk ../wms-cheery-scan.apk
+          cp app/build/outputs/apk/release/app-release.apk ../paketpas-scan.apk
 
       - uses: actions/upload-artifact@v4
         with:
-          name: wms-cheery-scan-${{ github.run_number }}
-          path: wms-cheery-scan.apk
+          name: paketpas-scan-${{ github.run_number }}
+          path: paketpas-scan.apk
 
       - name: Publish release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: android-v1.0.${{ github.run_number }}
-          name: WMS Cheery Scan 1.0.${{ github.run_number }}
+          name: Paketpas Scan 1.0.${{ github.run_number }}
           make_latest: true
-          files: wms-cheery-scan.apk
+          files: paketpas-scan.apk
           body: |
-            Aplikasi Android Scan Kemas & Serah Terima untuk WMS Cheery.
+            Aplikasi Android Scan Kemas & Serah Terima untuk WMS Paketpas.
 
-            Cara pasang: buka halaman ini dari HP, unduh `wms-cheery-scan.apk`, lalu buka berkasnya.
+            Cara pasang: buka halaman ini dari HP, unduh `paketpas-scan.apk`, lalu buka berkasnya.
             Bila diminta, izinkan "Instal aplikasi tidak dikenal" untuk browser/Files.
             Versi baru cukup dipasang menimpa yang lama (data login tetap).
 
@@ -92,7 +92,7 @@ jobs:
               if curl --fail-with-body -sS --max-time 600 -X POST "$url" \
                   -H "Authorization: Bearer $WMS_PUBLISH_TOKEN" \
                   -H "Accept: application/json" \
-                  -F "apk=@wms-cheery-scan.apk;type=application/vnd.android.package-archive" \
+                  -F "apk=@paketpas-scan.apk;type=application/vnd.android.package-archive" \
                   -F "notes=$NOTES"; then
                 ok=1; echo; break
               fi

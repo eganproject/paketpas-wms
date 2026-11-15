@@ -60,7 +60,7 @@ class ContinuousAuditPass6Test extends TestCase
     public function test_a_rejected_package_says_so_on_the_order_list(): void
     {
         $this->seed(\Database\Seeders\RolePermissionSeeder::class);
-        $admin = \App\Models\User::where('email', 'admin@cheery.test')->firstOrFail();
+        $admin = \App\Models\User::where('email', 'admin@paketpas.test')->firstOrFail();
         $product = Product::create(['sku' => 'FLT-OLI-STD', 'name' => 'Filter Oli', 'unit' => 'pcs']);
 
         $order = \App\Models\ShipmentImport::create(['filename' => 't.xlsx', 'source' => 'tiktok'])->orders()->create([

@@ -45,11 +45,11 @@ return [
      */
     'mobile_app' => [
         // Nama paket aplikasi; APK yang diunggah di admin harus cocok.
-        'package' => env('MOBILE_APP_PACKAGE', 'id.cheerychic.wmsscan'),
+        'package' => env('MOBILE_APP_PACKAGE', 'id.paketpas.wmsscan'),
         // Token rahasia untuk kiriman APK otomatis dari GitHub Actions
         // (POST /api/mobile/app-releases). Kosong = fitur mati.
         'publish_token' => env('MOBILE_APP_PUBLISH_TOKEN'),
-        'github_repo' => env('MOBILE_APP_GITHUB_REPO', 'eganproject/wms-cheery'),
+        'github_repo' => env('MOBILE_APP_GITHUB_REPO', 'eganproject/paketpas-wms'),
         'github_token' => env('MOBILE_APP_GITHUB_TOKEN'),
         'version_code' => env('MOBILE_APP_VERSION_CODE'),
         'version_name' => env('MOBILE_APP_VERSION_NAME'),

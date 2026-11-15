@@ -28,17 +28,17 @@ class BrandingTest extends TestCase
         $response->assertDontSee('password</span>', false);
     }
 
-    public function test_the_login_page_carries_the_cheerychic_logo(): void
+    public function test_the_login_page_carries_the_paketpas_logo(): void
     {
         $this->get(route('login'))
             ->assertOk()
-            ->assertSee('images/cheerychic-logo.png', false);
+            ->assertSee('images/paketpas-logo.png', false);
 
-        $this->assertFileExists(public_path('images/cheerychic-logo.png'));
+        $this->assertFileExists(public_path('images/paketpas-logo.png'));
     }
 
     /**
-     * Favicon disebut terang-terangan dan berkasnya memakai logo CheeryChic.
+     * Favicon disebut terang-terangan dan berkasnya memakai logo Paketpas.
      */
     public function test_the_favicon_is_declared_and_present(): void
     {

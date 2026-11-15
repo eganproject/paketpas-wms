@@ -33,7 +33,7 @@ class ListExportTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $this->import = ShipmentImport::create(['filename' => 'tiktok.xlsx', 'user_id' => $this->admin->id]);
         $this->tas = Product::create(['sku' => 'TAS-1', 'name' => 'Tas Mini', 'unit' => 'pcs', 'min_stock' => 0]);
     }

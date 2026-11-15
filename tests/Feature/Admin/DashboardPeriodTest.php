@@ -19,7 +19,7 @@ class DashboardPeriodTest extends TestCase
     public function test_waybill_stages_follow_the_period_and_old_backlog_is_flagged(): void
     {
         $this->seed(RolePermissionSeeder::class);
-        $admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         $import = ShipmentImport::create(['filename' => 'a.csv', 'source' => 'tiktok', 'row_count' => 2]);
 
         $this->travelTo(now()->subDays(3));

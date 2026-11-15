@@ -1,6 +1,6 @@
 <x-app-layout title="Aplikasi Android">
     <x-ui.page-header title="Aplikasi Android" icon="phone"
-                      subtitle="Unggah APK WMS Cheery Scan versi baru. HP yang sudah terpasang akan ditawari pembaruan saat aplikasinya dibuka." />
+                      subtitle="Unggah APK Paketpas Scan versi baru. HP yang sudah terpasang akan ditawari pembaruan saat aplikasinya dibuka." />
 
     <div class="mb-5 grid gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
         @can('mobile-app.update')
@@ -14,7 +14,7 @@
 
                 <div class="space-y-4">
                     <x-ui.field label="Berkas APK" for="apk" :error="$errors->get('apk')" required
-                                :hint="'Berkas .apk WMS Cheery Scan. Batas upload server: '.($maxUploadMb ?: '?').' MB.'"
+                                :hint="'Berkas .apk Paketpas Scan. Batas upload server: '.($maxUploadMb ?: '?').' MB.'"
                                 info="APK harus ditandatangani kunci yang sama dengan versi yang sudah terpasang di HP, kalau tidak Android menolak pembaruannya.">
                         <input id="apk" name="apk" type="file" accept=".apk,application/vnd.android.package-archive" required
                                class="block w-full text-sm text-ink-700 file:mr-3 file:rounded-lg file:border-0 file:bg-ink-100 file:px-3 file:py-1.5 file:text-sm file:text-ink-800 hover:file:bg-ink-200">
@@ -97,7 +97,7 @@
     <div class="overflow-hidden rounded-2xl border border-ink-100 bg-white">
         @if ($releases->isEmpty())
             <x-ui.empty-state icon="phone" title="Belum ada APK yang diunggah"
-                              description="Unggah APK WMS Cheery Scan di atas supaya HP bisa memperbarui aplikasinya dari server ini." />
+                              description="Unggah APK Paketpas Scan di atas supaya HP bisa memperbarui aplikasinya dari server ini." />
         @else
             <div class="overflow-x-auto">
                 <table class="erp-table">

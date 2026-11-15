@@ -28,21 +28,21 @@ class MobileAppReleaseTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
         Storage::fake('local');
         config(['cache.default' => 'array']);
     }
 
     private function apk(): UploadedFile
     {
-        return new UploadedFile(base_path('tests/fixtures/mobile-app/wms-scan-16.apk'), 'wms-cheery-scan.apk', null, null, true);
+        return new UploadedFile(base_path('tests/fixtures/mobile-app/wms-scan-16.apk'), 'paketpas-scan.apk', null, null, true);
     }
 
     public function test_reads_version_from_apk(): void
     {
         $info = ApkInfo::read(base_path('tests/fixtures/mobile-app/wms-scan-16.apk'));
 
-        $this->assertSame('id.cheerychic.wmsscan', $info->package);
+        $this->assertSame('id.paketpas.wmsscan', $info->package);
         $this->assertSame(16, $info->versionCode);
         $this->assertSame('1.0.16', $info->versionName);
     }

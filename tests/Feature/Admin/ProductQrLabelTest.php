@@ -29,7 +29,7 @@ class ProductQrLabelTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
 
         Product::create(['sku' => 'TOPI-01', 'name' => 'Topi Polos', 'unit' => 'pcs']);
 

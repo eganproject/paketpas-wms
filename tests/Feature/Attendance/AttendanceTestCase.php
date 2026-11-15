@@ -24,7 +24,7 @@ abstract class AttendanceTestCase extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
 
         // Selasa, 3 Nov 2026 jam 10:00 WIB.
         $this->travelTo(CarbonImmutable::parse('2026-11-03 10:00:00'));
@@ -60,7 +60,7 @@ abstract class AttendanceTestCase extends TestCase
     protected function warehouse(int $radius = 100): AttendanceLocation
     {
         return AttendanceLocation::create([
-            'name' => 'Gudang Cheery Chic',
+            'name' => 'Gudang Paketpas',
             'latitude' => -7.2575,
             'longitude' => 112.7521,
             'radius_meters' => $radius,

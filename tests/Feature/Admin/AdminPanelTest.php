@@ -21,7 +21,7 @@ class AdminPanelTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
     }
 
     public function test_guest_is_redirected_to_login(): void

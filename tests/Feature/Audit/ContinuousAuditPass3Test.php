@@ -27,7 +27,7 @@ class ContinuousAuditPass3Test extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
     }
 
     public function test_qc_links_a_sku_registered_with_different_spacing_or_case(): void

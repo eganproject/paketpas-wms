@@ -56,7 +56,7 @@ class AppVersionController extends Controller
             $disk = Storage::disk(MobileAppRelease::DISK);
             abort_unless($disk->exists($release->file_path), 404, 'Berkas pembaruan tidak ditemukan.');
 
-            return $disk->download($release->file_path, 'wms-cheery-scan.apk', [
+            return $disk->download($release->file_path, 'paketpas-scan.apk', [
                 'Content-Type' => 'application/vnd.android.package-archive',
             ]);
         }
@@ -82,7 +82,7 @@ class AppVersionController extends Controller
             }
         }, 200, array_filter([
             'Content-Type' => 'application/vnd.android.package-archive',
-            'Content-Disposition' => 'attachment; filename="wms-cheery-scan.apk"',
+            'Content-Disposition' => 'attachment; filename="paketpas-scan.apk"',
             'Content-Length' => $latest['size'] ? (string) $latest['size'] : null,
         ]));
     }
@@ -149,7 +149,7 @@ class AppVersionController extends Controller
 
         try {
             $request = Http::acceptJson()
-                ->withHeaders(['User-Agent' => 'wms-cheery-server'])
+                ->withHeaders(['User-Agent' => 'paketpas-wms-server'])
                 ->timeout(10);
             if ($token) {
                 $request = $request->withToken($token);

@@ -19,7 +19,7 @@ class MobileAppVersionTest extends TestCase
 
         config([
             'cache.default' => 'array',
-            'services.mobile_app.github_repo' => 'eganproject/wms-cheery',
+            'services.mobile_app.github_repo' => 'eganproject/paketpas-wms',
             'services.mobile_app.github_token' => null,
             'services.mobile_app.version_code' => null,
             'services.mobile_app.download_url' => null,
@@ -36,10 +36,10 @@ class MobileAppVersionTest extends TestCase
             'published_at' => '2026-11-05T01:00:00Z',
             'body' => "Perbaikan scan resi.\n\nCara pasang: buka halaman ini dari HP.",
             'assets' => [[
-                'name' => 'wms-cheery-scan.apk',
+                'name' => 'paketpas-scan.apk',
                 'size' => 12345,
-                'url' => 'https://api.github.com/repos/eganproject/wms-cheery/releases/assets/1',
-                'browser_download_url' => "https://github.com/eganproject/wms-cheery/releases/download/{$tag}/wms-cheery-scan.apk",
+                'url' => 'https://api.github.com/repos/eganproject/paketpas-wms/releases/assets/1',
+                'browser_download_url' => "https://github.com/eganproject/paketpas-wms/releases/download/{$tag}/paketpas-scan.apk",
             ]],
         ], $extra);
     }
@@ -59,7 +59,7 @@ class MobileAppVersionTest extends TestCase
             ->assertOk()
             ->assertJsonPath('latest.version_code', 27)
             ->assertJsonPath('latest.version_name', '1.0.27')
-            ->assertJsonPath('latest.download_url', 'https://github.com/eganproject/wms-cheery/releases/download/android-v1.0.27/wms-cheery-scan.apk')
+            ->assertJsonPath('latest.download_url', 'https://github.com/eganproject/paketpas-wms/releases/download/android-v1.0.27/paketpas-scan.apk')
             ->assertJsonPath('latest.size', 12345)
             ->assertJsonPath('latest.notes', 'Perbaikan scan resi.')
             ->assertJsonPath('min_version_code', 0);
@@ -101,8 +101,8 @@ class MobileAppVersionTest extends TestCase
     {
         config(['services.mobile_app.github_token' => 'secret-token']);
         Http::fake([
-            'api.github.com/repos/eganproject/wms-cheery/releases?*' => Http::response([$this->release('android-v1.0.27')]),
-            'api.github.com/repos/eganproject/wms-cheery/releases/assets/1' => Http::response('APKDATA', 200),
+            'api.github.com/repos/eganproject/paketpas-wms/releases?*' => Http::response([$this->release('android-v1.0.27')]),
+            'api.github.com/repos/eganproject/paketpas-wms/releases/assets/1' => Http::response('APKDATA', 200),
         ]);
 
         $this->getJson('/api/mobile/app-version')

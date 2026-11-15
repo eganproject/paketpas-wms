@@ -26,7 +26,7 @@ class ProductImageTest extends TestCase
 
         Storage::fake('public');
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
     }
 
     protected function payload(array $overrides = []): array
