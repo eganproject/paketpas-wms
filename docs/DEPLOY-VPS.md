@@ -144,7 +144,7 @@ dulu `DBPASS=$(grep DB_PASSWORD /root/paketpas-credentials.txt | cut -d= -f2)`):
 ```bash
 cd /var/www/paketpas
 sed -i \
-  -e 's|^APP_ENV=.*|APP_ENV=production|' \
+  -e 's|^APP_ENV=.*|APP_ENV=staging|' \
   -e 's|^APP_DEBUG=.*|APP_DEBUG=false|' \
   -e 's|^APP_URL=.*|APP_URL=https://paketpas.tech|' \
   -e 's|^LOG_LEVEL=.*|LOG_LEVEL=warning|' \
@@ -167,6 +167,7 @@ grep -E "^(APP_|DB_|SESSION_SECURE|LANDING_|MOBILE_APP_PUBLISH)" .env   # periks
 
 Yang perlu dipastikan:
 
+- `APP_ENV=staging` dipakai selama masa uji. `reset:data` tetap meminta konfirmasi.
 - `APP_DEBUG=false` — wajib. Bila `true`, galat menampilkan isi konfigurasi
   ke siapa pun.
 - `LANDING_WHATSAPP=08975568102` dan `LANDING_CONTACT_NAME` sudah terisi
