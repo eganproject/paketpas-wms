@@ -28,6 +28,14 @@ class TikTokImportService
 {
     public const MARKETPLACE = 'TikTok Shop';
 
+    /** Nilai kolom shipment_imports.source untuk berkas dari marketplace ini. */
+    public const SOURCE = 'tiktok';
+
+    /** Nama kolom resi dan SKU di berkas, untuk pesan kesalahan. */
+    protected string $trackingLabel = 'Tracking ID';
+
+    protected string $skuLabel = 'Seller SKU';
+
     /**
      * Nomor resi dan Order ID yang terbaca pada berkas terakhir yang
      * diimport (termasuk yang dilewati karena sudah ada), untuk dipakai
@@ -85,13 +93,13 @@ class TikTokImportService
 
         if (! isset($header['tracking_number'])) {
             throw ValidationException::withMessages([
-                'file' => 'Kolom Tracking ID tidak ditemukan. Pastikan berkas adalah eksport pesanan TikTok Shop.',
+                'file' => "Kolom {$this->trackingLabel} tidak ditemukan. Pastikan berkas adalah eksport pesanan ".static::MARKETPLACE.'.',
             ]);
         }
 
         if (! isset($header['sku']) && ! isset($header['variation'])) {
             throw ValidationException::withMessages([
-                'file' => 'Kolom Seller SKU tidak ditemukan. Pastikan berkas adalah eksport pesanan TikTok Shop.',
+                'file' => "Kolom {$this->skuLabel} tidak ditemukan. Pastikan berkas adalah eksport pesanan ".static::MARKETPLACE.'.',
             ]);
         }
 
@@ -138,6 +146,58 @@ class TikTokImportService
     /**
      * @return Collection<int, array<int, string>>
      */
+    /**
+     * Apakah baris-baris awal berkas ini berisi judul kolom eksport
+     * marketplace ini? Dipakai untuk mengenali asal berkas sebelum diimport.
+     *
+     * @param  Collection<int, array<int, string>>  $top
+     */
+    public function recognizes(Collection $top): bool
+    {
+        [$header] = $this->locateHeader($top);
+
+        return isset($header['tracking_number']) && (isset($header['sku']) || isset($header['variation']));
+    }
+
+    /**
+     * Beberapa baris awal berkas (semua kolom), tanpa membaca seluruh isinya.
+     * Cukup untuk mengenali judul kolom.
+     *
+     * @return Collection<int, array<int, string>>
+     */
+    public function peek(UploadedFile $file, int $limit = 10): Collection
+    {
+        $extension = strtolower($file->getClientOriginalExtension());
+
+        try {
+            if ($extension === 'csv' || $extension === 'txt') {
+                return $this->readCsv($file, $limit);
+            }
+
+            if ($extension === 'xlsx' && class_exists(\ZipArchive::class) && class_exists(\XMLReader::class)) {
+                return collect((new XlsxStreamReader)->read($file->getRealPath(), fn () => null, $limit, $limit));
+            }
+
+            $reader = IOFactory::createReaderForFile($file->getRealPath());
+            $reader->setReadDataOnly(true);
+            $reader->setReadFilter(new SpreadsheetCellFilter(maxRow: $limit));
+
+            return collect($reader->load($file->getRealPath())->getActiveSheet()->toArray(null, true, false, false))
+                ->take($limit)
+                ->mapWithKeys(fn (array $row, int $index) => [$index + 1 => array_map(fn ($value) => trim((string) $value), $row)]);
+        } catch (\Throwable) {
+            return collect();
+        }
+    }
+
+    /**
+     * @param  Collection<int, array<int, string>>  $top
+     */
+    public function hasTrackingColumn(Collection $top): bool
+    {
+        return isset($this->locateHeader($top)[0]['tracking_number']);
+    }
+
     protected function readRows(UploadedFile $file): Collection
     {
         $extension = strtolower($file->getClientOriginalExtension());
@@ -150,7 +210,7 @@ class TikTokImportService
     /**
      * @return Collection<int, array<int, string>>
      */
-    protected function readCsv(UploadedFile $file): Collection
+    protected function readCsv(UploadedFile $file, ?int $limit = null): Collection
     {
         $contents = file_get_contents($file->getRealPath());
 
@@ -166,7 +226,7 @@ class TikTokImportService
 
         $line = 0;
 
-        while (($row = fgetcsv($handle, 0, $delimiter, '"', '\\')) !== false) {
+        while (($limit === null || $line < $limit) && ($row = fgetcsv($handle, 0, $delimiter, '"', '\\')) !== false) {
             $rows->put(++$line, array_map(fn ($value) => trim((string) $value), $row));
         }
 
@@ -225,7 +285,7 @@ class TikTokImportService
                 ->mapWithKeys(fn (array $row, int $index) => [$index + 1 => array_map(fn ($value) => trim((string) $value), $row)]);
         } catch (\Throwable $exception) {
             throw ValidationException::withMessages([
-                'file' => 'Berkas tidak bisa dibaca. Pastikan formatnya .xlsx, .xls, atau .csv dari eksport TikTok Shop.',
+                'file' => 'Berkas tidak bisa dibaca. Pastikan formatnya .xlsx, .xls, atau .csv dari eksport '.static::MARKETPLACE.'.',
             ]);
         }
 
@@ -247,7 +307,7 @@ class TikTokImportService
             $sheet = $reader->load($path)->getActiveSheet();
         } catch (\Throwable $exception) {
             throw ValidationException::withMessages([
-                'file' => 'Berkas tidak bisa dibaca. Pastikan formatnya .xlsx, .xls, atau .csv dari eksport TikTok Shop.',
+                'file' => 'Berkas tidak bisa dibaca. Pastikan formatnya .xlsx, .xls, atau .csv dari eksport '.static::MARKETPLACE.'.',
             ]);
         }
 
@@ -380,10 +440,9 @@ class TikTokImportService
             $tracking = $this->value($row, $header, 'tracking_number');
             $variation = $this->value($row, $header, 'variation');
 
-            // Seller SKU kadang kosong pada produk lama; variasinya biasanya
-            // sama dengan SKU di master barang. Bila tetap tidak cocok, baris
-            // itu ditandai "SKU belum cocok" alih-alih hilang diam-diam.
-            $sku = $this->value($row, $header, 'sku') ?? $variation;
+            // Kolom SKU cadangan dipilih di rowSku(). Bila tetap tidak cocok,
+            // baris itu ditandai "SKU belum cocok" alih-alih hilang diam-diam.
+            $sku = $this->rowSku($row, $header);
 
             $line = [
                 'row_number' => $rowNumber,
@@ -398,7 +457,7 @@ class TikTokImportService
             if (blank($tracking)) {
                 $failures->push($line + [
                     'reason' => ShipmentImportFailure::REASON_NO_TRACKING,
-                    'detail' => 'Resi TikTok baru terbit setelah pesanan diatur pengirimannya (Atur Pengiriman). Ekspor ulang setelah itu.',
+                    'detail' => $this->noTrackingDetail(),
                 ]);
 
                 continue;
@@ -407,7 +466,7 @@ class TikTokImportService
             if (blank($sku)) {
                 $failures->push($line + [
                     'reason' => ShipmentImportFailure::REASON_NO_SKU,
-                    'detail' => 'Seller SKU dan Variation sama-sama kosong, jadi barangnya tidak bisa dikenali. Isi Seller SKU produk ini di TikTok Shop.',
+                    'detail' => $this->noSkuDetail(),
                 ]);
 
                 continue;
@@ -419,7 +478,7 @@ class TikTokImportService
                 $orders->put($key, [
                     'tracking_number' => $tracking,
                     'order_number' => $line['order_number'],
-                    'marketplace' => self::MARKETPLACE,
+                    'marketplace' => static::MARKETPLACE,
                     'order_status' => $this->value($row, $header, 'order_status'),
                     'courier' => $this->value($row, $header, 'courier'),
                     'shipping_method' => $this->value($row, $header, 'shipping_method'),
@@ -427,6 +486,7 @@ class TikTokImportService
                     'order_date' => $this->parseDate($this->value($row, $header, 'order_date')),
                     'paid_at' => $this->parseDate($this->value($row, $header, 'paid_at')),
                     'is_preorder' => $this->parsePreorder($this->value($row, $header, 'preorder')),
+                    'ship_by' => $this->parseDate($this->value($row, $header, 'ship_by')),
                     'items' => [],
                     'lines' => [],
                 ]);
@@ -508,7 +568,7 @@ class TikTokImportService
 
             if ($numbers->count() > 1) {
                 $reject($key, ShipmentImportFailure::REASON_TRACKING_SHARED,
-                    "Resi {$order['tracking_number']} tertulis untuk Order ID {$numbers->implode(', ')}. Satu resi hanya boleh untuk satu pesanan; periksa pesanannya di TikTok Shop.");
+                    "Resi {$order['tracking_number']} tertulis untuk Order ID {$numbers->implode(', ')}. Satu resi hanya boleh untuk satu pesanan; periksa pesanannya di ".static::MARKETPLACE.'.');
             }
         }
 
@@ -603,6 +663,37 @@ class TikTokImportService
         return [$orders, $failures->sortBy('row_number')->values(), $cancellations, $skipped];
     }
 
+    /**
+     * SKU satu baris. Seller SKU kadang kosong pada produk lama; variasinya
+     * biasanya sama dengan SKU di master barang.
+     *
+     * @param  array<int, string>  $row
+     * @param  array<string, int>  $header
+     */
+    protected function rowSku(array $row, array $header): ?string
+    {
+        return $this->value($row, $header, 'sku') ?? $this->value($row, $header, 'variation');
+    }
+
+    protected function noTrackingDetail(): string
+    {
+        return 'Resi TikTok baru terbit setelah pesanan diatur pengirimannya (Atur Pengiriman). Ekspor ulang setelah itu.';
+    }
+
+    protected function noSkuDetail(): string
+    {
+        return 'Seller SKU dan Variation sama-sama kosong, jadi barangnya tidak bisa dikenali. Isi Seller SKU produk ini di TikTok Shop.';
+    }
+
+    /**
+     * Sumber batas kirim bila berkas memuat kolom batas kirim; null bila
+     * batas kirim dihitung sistem.
+     */
+    protected function shipBySource(): ?string
+    {
+        return null;
+    }
+
     protected function productName(?string $name, ?string $variation): ?string
     {
         $label = trim(implode(' - ', array_filter([$name, $variation])));
@@ -688,7 +779,7 @@ class TikTokImportService
         $import = DB::transaction(function () use ($file, $header, $rowCount, $orders, $failures, $cancellations, $skipped, $products) {
             $import = ShipmentImport::create([
                 'filename' => $file->getClientOriginalName(),
-                'source' => 'tiktok',
+                'source' => static::SOURCE,
                 'row_count' => $rowCount,
                 'detected_columns' => array_keys($header),
                 'user_id' => auth()->id(),
@@ -817,7 +908,20 @@ class TikTokImportService
      */
     protected function createOrder(ShipmentImport $import, array $data): ShipmentOrder
     {
+        $shipBy = $data['ship_by'] ?? null;
+        unset($data['ship_by']);
+
         $order = new ShipmentOrder($data + ['shipment_import_id' => $import->id]);
+
+        // Batas kirim yang tertulis di berkas (Shopee) dipakai apa adanya dan
+        // dikunci, supaya tidak ditimpa hitungan lama PO sistem.
+        if ($shipBy !== null && $this->shipBySource() !== null) {
+            $order->forceFill([
+                'ship_by' => $shipBy,
+                'ship_by_source' => $this->shipBySource(),
+                'ship_by_set_at' => now(),
+            ]);
+        }
 
         if (ShipmentOrder::looksCancelled($data['order_status'] ?? null)) {
             $order->cancelled_at = now();

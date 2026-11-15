@@ -64,7 +64,7 @@ class Navigation
                             'match' => ['admin.imports.index', 'admin.imports.show', 'admin.imports.create', 'admin.imports.batches'],
                             'can' => 'imports.view',
                             'create' => ['route' => 'admin.imports.create', 'can' => 'imports.create'],
-                            'keywords' => 'import tiktok excel data resi unggah'],
+                            'keywords' => 'import tiktok shopee excel data resi unggah'],
                     ]],
                     ['label' => 'Pre Order', 'icon' => 'clock', 'tabs' => [
                         ['label' => 'Tenggat PO', 'icon' => 'clock', 'route' => 'admin.orders.deadlines',

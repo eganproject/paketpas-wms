@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\DB;
  *    periode lama PO yang berlaku pada waktu bayar itu (beberapa barang:
  *    yang terlama). Pesanan Normal: waktu bayar + aturan Normal; Instan /
  *    besok sampai: hari yang sama. Batas yang dikunci orang atau oleh upload
- *    "Harus dikirim menurut TikTok" tidak ditimpa.
+ *    "Harus dikirim menurut TikTok", atau yang tertulis di berkas Shopee,
+ *    tidak ditimpa.
  *
  * 2. Kesiapan stok. Stok di rak dibagi ke resi Belum QC, yang paling
  *    mendesak lebih dulu (prioritas, lalu batas kirim, lalu waktu bayar).
@@ -51,8 +52,11 @@ class OrderPlanner
 
     public const SOURCE_TIKTOK = 'tiktok';
 
+    /** Batas kirim yang tertulis di berkas eksport Shopee. */
+    public const SOURCE_SHOPEE = 'shopee';
+
     /** Sumber batas kirim yang dikunci: tidak ditimpa hitungan sistem. */
-    public const LOCKED_SOURCES = [self::SOURCE_MANUAL, self::SOURCE_TIKTOK];
+    public const LOCKED_SOURCES = [self::SOURCE_MANUAL, self::SOURCE_TIKTOK, self::SOURCE_SHOPEE];
 
     /** Penggalan nama layanan kirim yang harus berangkat hari itu juga. */
     public const EXPRESS_MARKERS = ['instan', 'instant', 'same day', 'sameday', 'besok sampai', 'next day'];
