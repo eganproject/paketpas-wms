@@ -6,7 +6,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// Palet desain baru: emas Paketpas + hitam, latar krem lembut.
+// Palet Paketpas: kuning amber logo (#F5B301) + hitam tinta (#111827), latar krem lembut.
 val Ink = Color(0xFF16171B)
 val Ink2 = Color(0xFF3A3D45)
 val InkMuted = Color(0xFF8A8F99)
@@ -16,9 +16,9 @@ val Field = Color(0xFFF4F2EC)
 val Surface2 = Color(0xFFF1EFEA)
 val Night = Color(0xFF0E0F12)
 val NightCard = Color(0xFF1A1B20)
-val Brand = Color(0xFFD6AE32)
-val Brand2 = Color(0xFFB8901C)
-val BrandBg = Color(0xFFFBF5E3)
+val Brand = Color(0xFFF5B301)
+val Brand2 = Color(0xFFB07800)
+val BrandBg = Color(0xFFFFF7DB)
 val OnBrand = Color(0xFF1A1405)
 val Success = Color(0xFF10A36B)
 val SuccessDark = Color(0xFF0B7F54)

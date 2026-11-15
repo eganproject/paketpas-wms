@@ -7,7 +7,8 @@
     variant="full": monogram di atas tulisan "Paketpas", untuk halaman masuk.
     variant="mark": monogram P saja.
 
-    Berkasnya PNG berlatar transparan di public/images, sementara (placeholder) sampai logo resmi Paketpas tersedia.
+    Berkasnya PNG berlatar transparan di public/images (konsep "P-Box": huruf P
+    berbentuk kardus, kuning amber #F5B301 di atas hitam tinta #111827).
     Tinggi diatur lewat class (mis. h-7); lebarnya mengikuti (w-auto).
 --}}
 @php
