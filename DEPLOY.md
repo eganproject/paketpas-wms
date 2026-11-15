@@ -1,5 +1,8 @@
 # Menaikkan WMS Otosby ke Hostinger
 
+> Untuk VPS sendiri (Nginx + PHP-FPM, seperti paketpas.tech), ikuti
+> [docs/DEPLOY-VPS.md](docs/DEPLOY-VPS.md). Dokumen ini untuk shared hosting.
+
 Urutan di bawah disusun menurut apa yang paling sering menggagalkan
 penempatan di shared hosting, bukan menurut urutan pekerjaannya.
 
