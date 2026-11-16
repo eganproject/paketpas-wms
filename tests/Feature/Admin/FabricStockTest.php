@@ -38,7 +38,7 @@ class FabricStockTest extends TestCase
 
         $this->travelTo(Carbon::parse('2026-06-12 09:00'));
         $this->seed(RolePermissionSeeder::class);
-        $this->admin = User::where('email', 'admin@cheery.test')->firstOrFail();
+        $this->admin = User::where('email', 'admin@paketpas.test')->firstOrFail();
     }
 
     /** Barang tujuan kain keluar. */
@@ -235,7 +235,7 @@ class FabricStockTest extends TestCase
     {
         $fabric = $this->fabric();
         $this->receive($fabric, 10, 1);
-        $token = $this->postJson(route('mobile.login'), ['email' => 'admin@cheery.test', 'password' => 'password', 'device_name' => 'HP'])
+        $token = $this->postJson(route('mobile.login'), ['email' => 'admin@paketpas.test', 'password' => 'password', 'device_name' => 'HP'])
             ->assertOk()->json('token');
 
         $this->withToken($token)->getJson(route('mobile.me'))->assertJsonPath('user.can.kain_keluar', true);

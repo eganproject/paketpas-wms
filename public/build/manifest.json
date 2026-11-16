@@ -27,6 +27,38 @@
     "file": "assets/inter-vietnamese-wght-normal-CBcvBZtf.woff2",
     "src": "node_modules/@fontsource-variable/inter/files/inter-vietnamese-wght-normal.woff2"
   },
+  "node_modules/@fontsource/sora/files/sora-latin-600-normal.woff": {
+    "file": "assets/sora-latin-600-normal-1_7fyUAY.woff",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-600-normal.woff"
+  },
+  "node_modules/@fontsource/sora/files/sora-latin-600-normal.woff2": {
+    "file": "assets/sora-latin-600-normal-Cdg4DaK0.woff2",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-600-normal.woff2"
+  },
+  "node_modules/@fontsource/sora/files/sora-latin-700-normal.woff": {
+    "file": "assets/sora-latin-700-normal-BKPfQAnC.woff",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-700-normal.woff"
+  },
+  "node_modules/@fontsource/sora/files/sora-latin-700-normal.woff2": {
+    "file": "assets/sora-latin-700-normal-9waGdLWo.woff2",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-700-normal.woff2"
+  },
+  "node_modules/@fontsource/sora/files/sora-latin-ext-600-normal.woff": {
+    "file": "assets/sora-latin-ext-600-normal-DLOJK0Ta.woff",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-ext-600-normal.woff"
+  },
+  "node_modules/@fontsource/sora/files/sora-latin-ext-600-normal.woff2": {
+    "file": "assets/sora-latin-ext-600-normal-Cue1zdhl.woff2",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-ext-600-normal.woff2"
+  },
+  "node_modules/@fontsource/sora/files/sora-latin-ext-700-normal.woff": {
+    "file": "assets/sora-latin-ext-700-normal-Oc7uZIYt.woff",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-ext-700-normal.woff"
+  },
+  "node_modules/@fontsource/sora/files/sora-latin-ext-700-normal.woff2": {
+    "file": "assets/sora-latin-ext-700-normal-DM0oy5s8.woff2",
+    "src": "node_modules/@fontsource/sora/files/sora-latin-ext-700-normal.woff2"
+  },
   "node_modules/barcode-detector/dist/es/ponyfill.js": {
     "file": "assets/ponyfill-CH0O-aif.js",
     "name": "ponyfill",
@@ -47,8 +79,13 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-QkfOxA8I.css",
+    "file": "assets/app-Dx4hPpac.css",
     "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/landing.css": {
+    "file": "assets/landing-BtMNORyy.css",
+    "src": "resources/css/landing.css",
     "isEntry": true
   },
   "resources/js/app.js": {
@@ -60,5 +97,11 @@
       "node_modules/barcode-detector/dist/es/ponyfill.js",
       "node_modules/zxing-wasm/dist/reader/zxing_reader.wasm?url"
     ]
+  },
+  "resources/js/landing.js": {
+    "file": "assets/landing-IUzitLRg.js",
+    "name": "landing",
+    "src": "resources/js/landing.js",
+    "isEntry": true
   }
 }
