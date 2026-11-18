@@ -27,6 +27,28 @@ class LandingPageTest extends TestCase
             ->assertSee(route('login'), false);
     }
 
+    public function test_the_landing_page_shows_santap_pos_and_development_services(): void
+    {
+        $this->get(route('landing'))
+            ->assertOk()
+            ->assertSee('id="santap-pos"', false)
+            ->assertSee(config('landing.pos.url'), false)
+            ->assertSee('images/landing/pos-kasir.webp', false)
+            ->assertSee('id="jasa"', false)
+            ->assertSee('https://cheery-chic.com', false)
+            ->assertSee('https://albaniah.optisync.tech', false);
+    }
+
+    public function test_the_santap_pos_section_hides_without_a_url(): void
+    {
+        config(['landing.pos.url' => '']);
+
+        $this->get(route('landing'))
+            ->assertOk()
+            ->assertDontSee('id="santap-pos"', false)
+            ->assertSee('id="jasa"', false);
+    }
+
     public function test_the_call_to_action_falls_back_to_the_login_page_without_contact(): void
     {
         config(['landing.whatsapp' => '', 'landing.email' => '']);

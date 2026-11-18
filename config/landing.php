@@ -66,4 +66,38 @@ return [
             'wa' => 'Halo Kak Ega, saya tertarik dengan paket Beli Putus Paketpas.',
         ],
     ],
+
+    /*
+     * Produk kedua: Santap POS, sistem kasir untuk restoran & kafe
+     * (repo eganproject/POSFnB). Bagian ini hilang bila 'url' dikosongkan.
+     */
+    'pos' => [
+        'url' => env('LANDING_POS_URL', 'https://pos.paketpas.tech'),
+        'wa' => 'Halo Kak Ega, saya punya usaha kuliner dan tertarik dengan Santap POS.',
+    ],
+
+    /*
+     * Jasa development: contoh hasil kerja yang tampil di landing page.
+     * Tambah atau hapus entri di sini saja; 'type' tampil sebagai label kecil,
+     * 'points' adalah hal yang benar-benar ada di situs itu.
+     */
+    'services_wa' => 'Halo Kak Ega, saya ingin dibuatkan website / sistem untuk usaha saya.',
+    'portfolio' => [
+        [
+            'name' => 'Cheery Chic',
+            'url' => 'https://cheery-chic.com',
+            'type' => 'Website toko online',
+            'summary' => 'Toko online daster dan one set rayon, lengkap dengan katalog per koleksi dan harga promo.',
+            'points' => ['Katalog per koleksi', 'Pilihan motif tiap produk', 'Harga grosir & flash sale'],
+            'accent' => '#E86A92',
+        ],
+        [
+            'name' => 'Albaniah Mukena',
+            'url' => 'https://albaniah.optisync.tech',
+            'type' => 'Website toko online',
+            'summary' => 'Toko online mukena dengan koleksi renda, bordir, travel, dan tutup dagu.',
+            'points' => ['Belanja per koleksi', 'Pilihan warna & motif', 'Promo dan ulasan produk'],
+            'accent' => '#2F7D6B',
+        ],
+    ],
 ];

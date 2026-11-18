@@ -15,6 +15,9 @@
         'check' => '<path d="m5 12 5 5L20 7"/>',
         'arrow' => '<path d="M5 12h14m-6-6 6 6-6 6"/>',
         'plus' => '<path d="M12 5v14M5 12h14"/>',
+        'cart' => '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.3h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/>',
+        'code' => '<path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/>',
+        'external' => '<path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>',
         'spark' => '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
     ];
     $icon = fn (string $name, string $class = 'h-5 w-5') => '<svg class="'.$class.'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'.$icons[$name].'</svg>';
@@ -112,11 +115,11 @@
         <a href="{{ route('landing') }}" class="flex shrink-0 items-center" aria-label="Paketpas, ke halaman depan">
             <x-application-logo class="h-8 w-auto" />
         </a>
-        <div class="hidden items-center gap-8 text-[15px] font-medium text-night/70 md:flex">
-            <a href="#masalah" class="lp-link hover:text-night">Kenapa Paketpas</a>
+        <div class="hidden items-center gap-7 text-[15px] font-medium text-night/70 lg:flex">
             <a href="#presentasi" class="lp-link hover:text-night">Tur aplikasi</a>
-            <a href="#fitur" class="lp-link hover:text-night">Fitur</a>
             <a href="#harga" class="lp-link hover:text-night">Harga</a>
+            @if ($pos)<a href="#santap-pos" class="lp-link hover:text-night">Santap POS</a>@endif
+            <a href="#jasa" class="lp-link hover:text-night">Jasa development</a>
             <a href="#tanya" class="lp-link hover:text-night">Tanya jawab</a>
         </div>
         <div class="flex items-center gap-2">
@@ -473,6 +476,170 @@
 </section>
 @endif
 
+{{-- ===================== Produk kedua: Santap POS ===================== --}}
+@if ($pos)
+<section id="santap-pos" class="relative overflow-hidden bg-night py-20 text-white lg:py-28">
+    <div class="lp-blob pointer-events-none absolute -left-24 top-16 h-80 w-80 rounded-full bg-[#F26B1D]/25 blur-3xl" aria-hidden="true"></div>
+    <div class="lp-blob lp-blob--slow pointer-events-none absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-brand-500/15 blur-3xl" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+            <div class="lg:col-span-5">
+                <p data-reveal class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[13px] font-semibold text-white/80 ring-1 ring-white/10">
+                    <span class="h-2 w-2 rounded-full bg-[#F26B1D]"></span> Produk kedua · untuk restoran &amp; kafe
+                </p>
+                <h2 data-reveal style="--d: 100ms" class="mt-5 font-display text-[32px] font-bold leading-tight tracking-[-0.02em] sm:text-[42px]">
+                    Santap POS: meja pesan sendiri, dapur bergegas, <span class="text-[#FF8A3D]">kasir pun bebas.</span>
+                </h2>
+                <p data-reveal style="--d: 200ms" class="mt-4 text-[17px] text-white/70">
+                    Punya usaha kuliner? Customer cukup scan QR di meja, pilih menu, lalu bayar online atau di kasir.
+                    Pesanan langsung muncul di layar dapur, kasir fokus melayani, dan laporan penjualan tersusun sendiri.
+                </p>
+                <ol class="mt-8 space-y-4">
+                    @foreach ([
+                        ['Scan QR di meja', 'Menu terbuka di HP customer, tanpa install aplikasi.'],
+                        ['Pesan & bayar', 'QRIS, e-wallet, dan virtual account lewat Midtrans, atau bayar di kasir.'],
+                        ['Dapur langsung masak', 'Pesanan masuk ke layar dapur seketika, customer bisa memantau statusnya.'],
+                    ] as $k => [$t, $b])
+                        <li data-reveal style="--d: {{ 280 + $k * 100 }}ms" class="flex gap-4">
+                            <span class="w-9 shrink-0 font-display text-[22px] font-bold leading-none text-[#FF8A3D]">0{{ $k + 1 }}</span>
+                            <span><span class="block font-semibold">{{ $t }}</span><span class="text-[15px] text-white/60">{{ $b }}</span></span>
+                        </li>
+                    @endforeach
+                </ol>
+                <div data-reveal style="--d: 560ms" class="mt-9 flex flex-col gap-3 sm:flex-row">
+                    <a href="{{ $pos['url'] }}" target="_blank" rel="noopener" class="lp-btn group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[12px] bg-[#F26B1D] px-5 py-3.5 font-semibold text-white hover:bg-[#FF7A2E]">
+                        Kunjungi Santap POS {!! $icon('external', 'h-4 w-4') !!}
+                    </a>
+                    <a href="{{ $planUrl($pos['wa'] ?? null) }}" {!! $ctaAttributes !!} class="lp-btn inline-flex items-center justify-center whitespace-nowrap rounded-[12px] border border-white/20 px-5 py-3.5 font-semibold text-white hover:bg-white/10">
+                        Tanya via WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            {{-- Panggung: kasir di web + menu QR di HP --}}
+            <div class="relative lg:col-span-7">
+                <p data-reveal class="mb-3 flex items-center gap-2 text-[13px] text-white/50">
+                    <span class="h-1.5 w-1.5 rounded-full bg-[#F26B1D]"></span>Layar kasir: menu cepat, open bill, diskon, lalu bayar
+                </p>
+                <div class="relative sm:pb-16">
+                    <figure data-reveal="right" style="--d: 150ms" class="lp-browser lp-tilt relative sm:mr-[110px]">
+                        <div class="lp-browser-bar"><span></span><span></span><span></span><em>{{ parse_url($pos['url'], PHP_URL_HOST) }}/pos</em></div>
+                        <img src="{{ $img('pos-kasir.webp') }}" width="1600" height="1000" loading="lazy" alt="Layar kasir Santap POS: grid menu dan keranjang dengan subtotal, service, pajak, dan tombol bayar" class="block w-full">
+                    </figure>
+                    <figure data-reveal="zoom" style="--d: 400ms" class="lp-phone lp-float mx-auto mt-6 w-[46%] max-w-[200px] sm:absolute sm:bottom-0 sm:right-0 sm:mt-0 sm:w-[160px]">
+                        <img src="{{ $img('pos-menu-hp.webp') }}" width="540" height="1200" loading="lazy" alt="Menu digital Santap POS di HP customer setelah scan QR meja">
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 grid gap-6 lg:mt-20 lg:grid-cols-2">
+            @foreach ([
+                ['pos-kitchen.webp', '/kitchen', 'Layar dapur: antrean, sedang dimasak, siap diantar, lengkap dengan timer'],
+                ['pos-reports.webp', '/dashboard/reports', 'Laporan owner: pendapatan harian, menu terlaris, dan per kategori'],
+            ] as $k => [$file, $path, $caption])
+                <figure data-reveal="{{ $k ? 'right' : 'left' }}" style="--d: {{ $k * 120 }}ms">
+                    <div class="lp-browser">
+                        <div class="lp-browser-bar"><span></span><span></span><span></span><em>{{ parse_url($pos['url'], PHP_URL_HOST) }}{{ $path }}</em></div>
+                        <img src="{{ $img($file) }}" width="1600" height="1000" loading="lazy" alt="{{ $caption }}" class="block w-full">
+                    </div>
+                    <figcaption class="mt-3 text-[14px] text-white/55">{{ $caption }}</figcaption>
+                </figure>
+            @endforeach
+        </div>
+
+        <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            @foreach ([
+                ['Customer', 'Menu per meja, varian & add-on, catatan per item, pantau status pesanan dan panggil pelayan.'],
+                ['Kasir', 'Dine-in & takeaway, open bill, split bill, diskon, struk thermal 80mm, dan tutup shift dengan rekap kas.'],
+                ['Dapur', 'Layar 3 kolom dengan timer, rekap total item yang harus dimasak, dan tandai stok habis.'],
+                ['Owner', 'Menu, meja & QR, multi-outlet, pengguna & role, serta laporan yang bisa diekspor ke CSV.'],
+            ] as $k => [$role, $body])
+                <div data-reveal style="--d: {{ $k * 90 }}ms" class="rounded-[16px] bg-white/[0.04] p-5 ring-1 ring-white/10">
+                    <p class="font-display text-[17px] font-semibold text-[#FF8A3D]">{{ $role }}</p>
+                    <p class="mt-2 text-[14px] text-white/65">{{ $body }}</p>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- ===================== Jasa development & portofolio ===================== --}}
+<section id="jasa" class="py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid gap-10 lg:grid-cols-12">
+            <div class="lg:col-span-5">
+                <p data-reveal class="text-[14px] font-semibold uppercase tracking-[0.12em] text-brand-700">Jasa development</p>
+                <h2 data-reveal style="--d: 100ms" class="mt-3 font-display text-[32px] font-bold leading-tight tracking-[-0.02em] sm:text-[40px]">
+                    Butuh website atau sistem sendiri? Kami bikinkan yang pas.
+                </h2>
+                <p data-reveal style="--d: 200ms" class="mt-4 text-[17px] text-night/65">
+                    Paketpas dan Santap POS kami bangun sendiri dari nol. Pengalaman yang sama kami pakai untuk membuatkan
+                    website toko online dan sistem untuk bisnis lain, disesuaikan dengan cara kerja timmu.
+                </p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+                @foreach ([
+                    ['cart', 'Website toko online', 'Toko dengan domain sendiri: katalog per koleksi, pilihan varian, promo, dan keranjang belanja.'],
+                    ['code', 'Sistem bisnis custom', 'Aplikasi untuk gudang, kasir, atau operasional harian, dibuat mengikuti alur kerja bisnismu.'],
+                ] as $k => [$ic, $title, $body])
+                    <div data-reveal style="--d: {{ 150 + $k * 100 }}ms" class="lp-card rounded-[18px] border border-night/10 bg-white p-6">
+                        <span class="flex h-11 w-11 items-center justify-center rounded-[12px] bg-night text-brand-400">{!! $icon($ic, 'h-5 w-5') !!}</span>
+                        <h3 class="mt-4 font-display text-[19px] font-semibold">{{ $title }}</h3>
+                        <p class="mt-2 text-[15px] text-night/65">{{ $body }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <p data-reveal class="mt-16 text-[14px] font-semibold text-night/50">Beberapa hasil kerja kami</p>
+        <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            @php
+                $works = array_merge($portfolio, array_filter([
+                    ['name' => 'Paketpas', 'url' => null, 'type' => 'Sistem gudang (WMS)', 'summary' => 'Web dan aplikasi Android untuk gudang seller marketplace, halaman yang sedang kamu baca.', 'points' => ['Import pesanan TikTok Shop & Shopee', 'QC kemas dengan scan', 'Aplikasi Android'], 'accent' => '#111827'],
+                    $pos ? ['name' => 'Santap POS', 'url' => $pos['url'], 'type' => 'Sistem kasir F&B', 'summary' => 'POS restoran & kafe dengan pesan lewat QR meja, layar dapur, dan laporan.', 'points' => ['Order QR & bayar online', 'Layar dapur realtime', 'Split bill & struk'], 'accent' => '#F26B1D'] : null,
+                ]));
+            @endphp
+            @foreach ($works as $k => $w)
+                @php $host = $w['url'] ? preg_replace('/^www\./', '', parse_url($w['url'], PHP_URL_HOST)) : 'paketpas.tech'; @endphp
+                <article data-reveal style="--d: {{ ($k % 4) * 90 }}ms" class="lp-card group flex flex-col overflow-hidden rounded-[18px] border border-night/10 bg-white">
+                    <div class="relative flex h-36 flex-col justify-between p-5 text-white" style="background: {{ $w['accent'] ?? '#111827' }}">
+                        <span class="self-start rounded-full bg-black/20 px-2.5 py-0.5 text-[12px] font-medium">{{ $host }}</span>
+                        <span class="font-display text-[24px] font-bold leading-tight tracking-[-0.01em]">{{ $w['name'] }}</span>
+                        <span class="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/15" aria-hidden="true"></span>
+                    </div>
+                    <div class="flex flex-1 flex-col p-5">
+                        <p class="text-[12px] font-semibold uppercase tracking-[0.1em] text-brand-700">{{ $w['type'] }}</p>
+                        <p class="mt-2 text-[14px] text-night/70">{{ $w['summary'] }}</p>
+                        <ul class="mt-3 flex-1 space-y-1.5 text-[13px] text-night/60">
+                            @foreach ($w['points'] ?? [] as $pt)
+                                <li class="flex gap-2"><span class="mt-0.5 text-brand-600">{!! $icon('check', 'h-4 w-4') !!}</span>{{ $pt }}</li>
+                            @endforeach
+                        </ul>
+                        @if ($w['url'])
+                            <a href="{{ $w['url'] }}" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold text-night hover:text-brand-700">
+                                Kunjungi situs {!! $icon('external', 'h-4 w-4') !!}
+                            </a>
+                        @else
+                            <a href="#presentasi" class="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold text-night hover:text-brand-700">
+                                Lihat tur aplikasinya {!! $icon('arrow', 'h-4 w-4') !!}
+                            </a>
+                        @endif
+                    </div>
+                </article>
+            @endforeach
+        </div>
+
+        <div data-reveal class="mt-10 flex flex-col items-start justify-between gap-5 rounded-[18px] bg-night p-6 text-white sm:flex-row sm:items-center sm:p-7">
+            <p class="text-[15px] text-white/75"><span class="font-semibold text-white">Harga menyesuaikan kebutuhan.</span> Ceritakan dulu rencanamu, kita ngobrol santai tanpa kewajiban apa pun.</p>
+            <a href="{{ $planUrl(config('landing.services_wa')) }}" {!! $ctaAttributes !!} class="lp-btn group inline-flex shrink-0 items-center justify-center gap-2 rounded-[12px] bg-brand-500 px-6 py-3.5 font-semibold text-night hover:bg-brand-400">
+                Diskusikan proyekmu <span class="transition-transform group-hover:translate-x-1">{!! $icon('arrow', 'h-4 w-4') !!}</span>
+            </a>
+        </div>
+    </div>
+</section>
+
 {{-- ===================== Tanya jawab ===================== --}}
 <section id="tanya" class="bg-white py-20 lg:py-28">
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
@@ -542,8 +709,10 @@
             <x-application-logo variant="mark" class="h-7 w-auto" />
             <span>&copy; {{ date('Y') }} Paketpas · Paket pas, pembeli puas</span>
         </div>
-        <div class="flex gap-6">
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <a href="#presentasi" class="hover:text-night">Tur aplikasi</a>
+            @if ($pos)<a href="{{ $pos['url'] }}" target="_blank" rel="noopener" class="hover:text-night">Santap POS</a>@endif
+            <a href="#jasa" class="hover:text-night">Jasa development</a>
             <a href="{{ route('app.download-page') }}" class="hover:text-night">Aplikasi Android</a>
             <a href="{{ route('login') }}" class="hover:text-night">Masuk</a>
         </div>
