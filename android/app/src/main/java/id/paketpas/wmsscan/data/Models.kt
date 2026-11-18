@@ -11,6 +11,8 @@ data class Can(
     val absen: Boolean = false,
     val retur: Boolean = false,
     @SerialName("retur_terima") val returTerima: Boolean = false,
+    @SerialName("kain_keluar") val kainKeluar: Boolean = false,
+    @SerialName("kain_cek") val kainCek: Boolean = false,
 )
 
 @Serializable
@@ -390,4 +392,61 @@ data class ReturnFinish(
     val missing: Int = 0,
     val foreign: Int = 0,
     val message: String = "",
+)
+
+/* ------------------------------------------------------------- kain -- */
+
+/** Satu roll kain dari hasil scan QR (isi QR = SKU kain + nomor roll). */
+@Serializable
+data class FabricRoll(
+    val id: Int,
+    val code: String,
+    val sku: String,
+    val name: String,
+    val color: String? = null,
+    @SerialName("image_url") val imageUrl: String? = null,
+    val unit: String = "",
+    val quantity: Double = 0.0,
+    val initial: Double = 0.0,
+    @SerialName("quantity_label") val quantityLabel: String = "",
+    @SerialName("initial_label") val initialLabel: String = "",
+    val empty: Boolean = false,
+    val lot: String? = null,
+    val location: String? = null,
+    /** Barang yang memakai kain ini (pilihan cepat kain keluar). */
+    val products: List<FabricProduct> = emptyList(),
+)
+
+/** Barang yang dibuat dari kain keluar. */
+@Serializable
+data class FabricProduct(
+    val id: Int,
+    val sku: String,
+    val name: String,
+    @SerialName("image_url") val imageUrl: String? = null,
+)
+
+@Serializable
+data class FabricProductList(val products: List<FabricProduct> = emptyList())
+
+@Serializable
+data class FabricIssue(
+    val id: Int,
+    val code: String,
+    val sku: String = "",
+    val name: String = "",
+    @SerialName("quantity_label") val quantityLabel: String = "",
+    @SerialName("balance_label") val balanceLabel: String = "",
+    val destination: String? = null,
+    @SerialName("product_sku") val productSku: String? = null,
+    val time: String = "",
+    val cancelled: Boolean = false,
+)
+
+@Serializable
+data class FabricResponse(
+    val message: String = "",
+    val roll: FabricRoll? = null,
+    val changed: Boolean = false,
+    val recent: List<FabricIssue>? = null,
 )

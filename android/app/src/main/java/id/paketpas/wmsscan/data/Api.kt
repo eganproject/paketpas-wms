@@ -159,6 +159,41 @@ object Api {
             })
         )
 
+    /* ------------------------------------------------------- kain ---- */
+
+    suspend fun kainLookup(code: String): FabricResponse =
+        json.decodeFromString(call("POST", "/kain/lookup", buildJsonObject { put("code", code) }))
+
+    /** Kain keluar dari roll; [quantity] null = ambil semua sisanya. */
+    suspend fun kainKeluar(code: String, quantity: Double?, productId: Int, note: String?): FabricResponse =
+        json.decodeFromString(
+            call("POST", "/kain/keluar", buildJsonObject {
+                put("code", code)
+                if (quantity == null) put("all", true) else put("quantity", quantity)
+                put("product_id", productId)
+                if (!note.isNullOrBlank()) put("note", note)
+            })
+        )
+
+    /** Sisa roll hasil ukur ulang; selisihnya dicatat sebagai koreksi. */
+    suspend fun kainCek(code: String, actual: Double, note: String?): FabricResponse =
+        json.decodeFromString(
+            call("POST", "/kain/cek", buildJsonObject {
+                put("code", code)
+                put("actual", actual)
+                if (!note.isNullOrBlank()) put("note", note)
+            })
+        )
+
+    suspend fun kainRecent(): FabricResponse = json.decodeFromString(call("GET", "/kain/terakhir"))
+
+    /** Cari barang untuk kain keluar; barang pemakai kain roll [code] paling atas. */
+    suspend fun kainBarang(query: String, code: String?): FabricProductList {
+        val q = java.net.URLEncoder.encode(query, "UTF-8")
+        val c = java.net.URLEncoder.encode(code ?: "", "UTF-8")
+        return json.decodeFromString(call("GET", "/kain/barang?q=$q&code=$c"))
+    }
+
     /* ---------------------------------------------------- pesanan ---- */
 
     suspend fun summary(date: String? = null): Summary =

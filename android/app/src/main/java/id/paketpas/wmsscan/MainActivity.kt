@@ -18,6 +18,7 @@ import id.paketpas.wmsscan.data.Stages
 import id.paketpas.wmsscan.ui.AbsenHistoryScreen
 import id.paketpas.wmsscan.ui.AbsenScreen
 import id.paketpas.wmsscan.ui.HomeScreen
+import id.paketpas.wmsscan.ui.KainScreen
 import id.paketpas.wmsscan.ui.KemasScreen
 import id.paketpas.wmsscan.ui.LoginScreen
 import id.paketpas.wmsscan.ui.OrderDetailScreen
@@ -61,6 +62,9 @@ private fun AppRoot() {
                 onAbsen = { type -> nav.navigate("absen/$type") { launchSingleTop = true } },
                 onAbsenHistory = { nav.navigate("absen-riwayat") { launchSingleTop = true } },
                 onRetur = { if (user?.can?.retur == true) nav.navigate("retur") { launchSingleTop = true } },
+                onKain = {
+                    if (user?.can?.kainKeluar == true || user?.can?.kainCek == true) nav.navigate("kain") { launchSingleTop = true }
+                },
             )
         }
         composable(
@@ -76,6 +80,7 @@ private fun AppRoot() {
         composable("absen-riwayat") { AbsenHistoryScreen(onBack = { nav.popBackStack() }) }
         composable("kemas") { KemasScreen(onBack = { nav.popBackStack() }) }
         composable("retur") { ReturScreen(onBack = { nav.popBackStack() }) }
+        composable("kain") { KainScreen(onBack = { nav.popBackStack() }) }
         composable("serah") {
             SerahTerimaScreen(
                 onBack = { nav.popBackStack() },
