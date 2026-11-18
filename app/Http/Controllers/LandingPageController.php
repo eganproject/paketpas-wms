@@ -27,6 +27,8 @@ class LandingPageController extends Controller
 
         return view('landing', [
             'pricing' => config('landing.pricing', []),
+            'pos' => filled(config('landing.pos.url')) ? config('landing.pos') : null,
+            'portfolio' => config('landing.portfolio', []),
             'planUrl' => $planUrl,
             'contactUrl' => $contactUrl,
             'contactIsExternal' => filled($whatsapp) || filled($email),
